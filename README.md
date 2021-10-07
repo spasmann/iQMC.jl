@@ -1,4 +1,4 @@
-# Krylov_NDA
+# Krylov_NDA: some progress
 Draft of Krylov-NDA paper
 Sam, Ryan, this is the private repo for the paper. I am getting the data into the results section. This is more pain that I expected becasue the notebook->tex map
 works out of the box for my book project and for a simple pdf job. It does not as work well for journal publications. I should be done pretty soon anyhow.
