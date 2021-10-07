@@ -2,6 +2,7 @@
 % Options: footnoteAtEnd - Places all footnotes at the end of document
 %               Usage: \documentclass[footnoteAtEnd]{style/nseJournal}
 \documentclass{nseJournal}
+\usepackage{tim,ma580}
 
 \begin{document}
 
@@ -11,7 +12,7 @@ Methods for Transport Simulations}
 % Use the \addAuthor macro to add authors in the order they should appear. The second argument corresponds to
 % the affiliation declared below.
 \addAuthor{Sam Pasmann}{a}
-\addAuthor{C. T. Kelley}{c}
+\addAuthor{C. T. Kelley}{b}
 \addAuthor{\correspondingAuthor{Ryan McClarren}}{a}
 \correspondingEmail{rmcclarr@nd.edu}
 
@@ -31,12 +32,9 @@ QMC + Krylov
 \end{abstract}
 
 
-\section{Introduction}
+\input{intro_Krylov_QMC}
 
-
-\section{Computational Results}
-\label{sec:results}
-
+\input{results_Krylov_QMC}
 
 
 \section{Conclusion}

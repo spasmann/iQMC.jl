@@ -1,0 +1,99 @@
+\section{Computational Results}
+\label{sec:results}
+In this section we consider an example from
+\cite{cesinh}. The formulation of the transport
+problem is taken from \cite{ctk:jeff1}. The equation for the angular
+flux \(\psi\) is
+
+\[
+\mu \frac{\partial \psi}{\partial x} (x,\mu) + \Sigma_t(x) \psi(x,\mu) =
+\frac{1}{2} \left[ \Sigma_s(x) \int_{-1}^1 \psi(x, \mu') \dmup + q(x) \right]
+ \mbox{ for } 0 \le x \le \tau
+\]
+
+The boundary conditions are
+
+\[
+\psi(0, \mu) = \psi_l(\mu), \mu > 0; \psi(\tau, \mu) = \psi_r(\mu),
+\mu < 0.
+\]
+
+The notation is
+
+\begin{itemize}
+\item
+  \(\psi\) is intensity of radiation or angular flux at point \(x\) at
+  angle \(\cos^{-1} (\mu)\)
+\item
+  \(\phi = \phi(x) = \int_{-1}^{1}\psi(x,\mu) \ d\mu\) is the scalar
+  flux, the \(0^{th}\) angular moment of the angular flux. -
+  \(\tau < \infty\), length of the spatial domain. -
+  \(\Sigma_s \in C([0,\tau])\) is the scattering cross section at \(x\)
+  - \(\Sigma_t \in C([0,\tau])\) is the total cross section at \(x\) -
+  \(\psi_l\) and \(\psi_r\) are incoming intensities at the bounds -
+  \(q \in C([0,\tau])\) is the fixed source
+\end{itemize}
+
+
+\subsection{The Garcia-Siewert Example}
+\label{the-garcia-siewert-example}
+
+In this example \[
+\tau=5, \Sigma_s(x) =\omega_0 e^{-x/s},  \Sigma_t(x) = 1, q(x) = 0, \psi_l(\mu) = 1, \psi_r(\mu) = 0.
+\]
+
+\subsection{Solvers}
+\label{subsec:solvers}
+
+The linear and nonlinear solvers come from the Julia package
+\href{https://github.com/ctkelley/SIAMFANLEquations.jl}{SIAMFANLEQ.jl}
+\cite{ctk:siamfanl}. The documentation for these codes is in the
+\href{https://github.com/ctkelley/NotebookSIAMFANL}{Juila notebooks}
+that accompany the package \cite{ctk:notebooknl}. 
+These are part of a book project \cite{ctk:fajulia}. 
+
+\subsection{Source Iteration and Krylov Methods}
+\label{source-iteration-and-krylov-methods}
+
+We use two krylov methods \cite{ctk:roots}, GMRES \cite{gmres} and
+Bi-CGSTAB \cite{bicgstab}.
+
+\subsection{QMC}\label{qmc}
+
+\subsection{Validation and calibration study}
+\label{validation-and-calibration-study}
+
+I'll compare the results from the SN computation to what I get from
+Sam's QMC code. My SN results are for a very fine spatial mesh and fine
+enough angular mesh. They are good to at least six figures and I will
+regard them as exact for this study.
+
+I will use the SN results for the table in the Garcia-Siewert paper and
+get results from QMC in the following way
+
+\begin{itemize}
+\item
+  For a give N and Nx I will get cell average fluxes from Sam's code.
+\item
+  I will use the same code to generate the tables that I used for the SN
+  fluxes. That code is \textbf{src/sn\_tabulate.jl}
+\item
+  I will take the two 11 x 2 arrays of results DataSN and DataQMC and
+  compoute componentwise relative error with
+\end{itemize}
+
+\begin{verbatim}
+Derr = (DataSN-DataQMC)./DataSN
+\end{verbatim}
+
+\subsection{QMC and Krylov Linear Solvers}
+\label{qmc-and-krylov-linear-solvers}
+
+I can solve the QMC linear problem with both Krylov methods now and,
+just like the classical case, I'm seeing fewer than half of the number
+of transport sweeps. Herewith the results for N=1000 and Nx= 100.
+
+
+
+
+
