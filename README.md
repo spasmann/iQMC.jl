@@ -11,8 +11,8 @@ Organization:
 
 - Krylov_QMC.tex is the paper. It will have the abstract, conclusions, and our names and addresses. This main file uses LaTeX's \input command to include the sections
 
-  - intro_Krylov_QMC.tex
-  - results_Krylov_QMC.tex
+  - intro_Krylov_QMC.tex: __I am not touching this as of Oct 7 and will warn you if I want to. Feel free to put stuff in here.__
+  - results_Krylov_QMC.tex: __I am actively working on this.__
   
 - qmckrylov.bib is the BiBTeX file. As you add stuff to it, watch out for duplications.
 - local.sty is the place to put our personal LaTeX commands/macros
