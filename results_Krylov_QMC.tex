@@ -5,11 +5,12 @@ In this section we consider an example from
 problem is taken from \cite{ctk:jeff1}. The equation for the angular
 flux \(\psi\) is
 
-\[
+\begeq
+\label{eq:transportgs}
 \mu \frac{\partial \psi}{\partial x} (x,\mu) + \Sigma_t(x) \psi(x,\mu) =
 \frac{1}{2} \left[ \Sigma_s(x) \int_{-1}^1 \psi(x, \mu') \dmup + q(x) \right]
  \mbox{ for } 0 \le x \le \tau
-\]
+\endeq
 
 The boundary conditions are
 
@@ -18,32 +19,11 @@ The boundary conditions are
 \mu < 0.
 \]
 
-The notation is
+\subsection{Using Krylov Linear Solvers}
+\label{subsec:krylov}
 
-\begin{itemize}
-\item
-  \(\psi\) is intensity of radiation or angular flux at point \(x\) at
-  angle \(\cos^{-1} (\mu)\)
-\item
-  \(\phi = \phi(x) = \int_{-1}^{1}\psi(x,\mu) \ d\mu\) is the scalar
-  flux, the \(0^{th}\) angular moment of the angular flux. -
-  \(\tau < \infty\), length of the spatial domain. -
-  \(\Sigma_s \in C([0,\tau])\) is the scattering cross section at \(x\)
-  - \(\Sigma_t \in C([0,\tau])\) is the total cross section at \(x\) -
-  \(\psi_l\) and \(\psi_r\) are incoming intensities at the bounds -
-  \(q \in C([0,\tau])\) is the fixed source
-\end{itemize}
-
-
-\subsection{The Garcia-Siewert Example}
-\label{the-garcia-siewert-example}
-
-In this example \[
-\tau=5, \Sigma_s(x) =\omega_0 e^{-x/s},  \Sigma_t(x) = 1, q(x) = 0, \psi_l(\mu) = 1, \psi_r(\mu) = 0.
-\]
-
-\subsection{Solvers}
-\label{subsec:solvers}
+We use two krylov methods \cite{ctk:roots}, GMRES \cite{gmres} and
+Bi-CGSTAB \cite{bicgstab}.
 
 The linear and nonlinear solvers come from the Julia package
 \href{https://github.com/ctkelley/SIAMFANLEquations.jl}{SIAMFANLEQ.jl}
@@ -53,10 +33,14 @@ that accompany the package \cite{ctk:notebooknl}.
 These are part of a book project \cite{ctk:fajulia}. 
 
 \subsection{Source Iteration and Krylov Methods}
-\label{source-iteration-and-krylov-methods}
 
-We use two krylov methods \cite{ctk:roots}, GMRES \cite{gmres} and
-Bi-CGSTAB \cite{bicgstab}.
+\subsection{The Garcia-Siewert Example}
+\label{subsec:garcia}
+
+In this example 
+\[
+\tau=5, \Sigma_s(x) =\omega_0 e^{-x/s},  \Sigma_t(x) = 1, q(x) = 0, \psi_l(\mu) = 1, \psi_r(\mu) = 0.
+\]
 
 \subsection{QMC}\label{qmc}
 
