@@ -19,6 +19,12 @@ The boundary conditions are
 \mu < 0.
 \]
 
+In the computaions we use
+\[
+\tau=5, \Sigma_s(x) =\omega_0 e^{-x/s},  \Sigma_t(x) = 1, q(x) = 0, \psi_l(\mu) = 1, \psi_r(\mu) = 0,
+\]
+and consider two cases $s=1$ and $s=\infty$ 
+
 \subsection{Using Krylov Linear Solvers}
 \label{subsec:krylov}
 
@@ -29,20 +35,11 @@ The linear and nonlinear solvers come from the Julia package
 \href{https://github.com/ctkelley/SIAMFANLEquations.jl}{SIAMFANLEQ.jl}
 \cite{ctk:siamfanl}. The documentation for these codes is in the
 \href{https://github.com/ctkelley/NotebookSIAMFANL}{Juila notebooks}
-that accompany the package \cite{ctk:notebooknl}. 
-These are part of a book project \cite{ctk:fajulia}. 
+\cite{ctk:notebooknl} and the book \cite{ctk:fajulia}
+that accompany the package. 
 
 \subsection{Source Iteration and Krylov Methods}
 
-\subsection{The Garcia-Siewert Example}
-\label{subsec:garcia}
-
-In this example 
-\[
-\tau=5, \Sigma_s(x) =\omega_0 e^{-x/s},  \Sigma_t(x) = 1, q(x) = 0, \psi_l(\mu) = 1, \psi_r(\mu) = 0.
-\]
-
-\subsection{QMC}\label{qmc}
 
 \subsection{Validation and calibration study}
 \label{validation-and-calibration-study}
@@ -77,7 +74,47 @@ I can solve the QMC linear problem with both Krylov methods now and,
 just like the classical case, I'm seeing fewer than half of the number
 of transport sweeps. Herewith the results for N=1000 and Nx= 100.
 
+\begin{figure}[t]%[!htbp]
+  \centering
+  \includegraphics[trim = 10mm 0mm 15mm 15mm, width=70mm]{FIGURES/seqone.png}
+  \caption{$s = 1$}
+  \label{fig:easy}
+\end{figure}
 
+\begin{figure}[t]%[!htbp]
+  \centering
+  \includegraphics[trim = 10mm 0mm 15mm 15mm, width=70mm]{FIGURES/seqinf.png}
+  \caption{$s = \infty$}
+  \label{fig:hard}
+\end{figure}
+
+\subsection{Validation and calibration study}
+\label{validation-and-calibration-study}
+
+We conclude this section with a validation study. We compare the
+QMC results with the results from \cite{cesinh}. The results
+in \eqnok{cesinh} are exit distributions and are accurate to 
+six figures. We have duplicated those results with an $Sn$ computation
+on a fine angular and spatial mesh.
+
+The exit distributions, as is clear from Table~\ref{tab:ces}
+vary by six orders of magnitude. To account for this we compare
+compare the data from \cite{cesinh} to the results from the QMC
+approximation in the following way. 
+
+{\bf Sam, Ryan, should we use more or different values of $N$ and $Nx$?}
+
+For $N = 1000$ and $Nx=100$ we obtain the cell-average fluxes from
+the QMC approximation. We then use a single Sn transport sweep to recover
+the exit distributions from the QMC cell-average fluxes. We report
+the results and the corresponding results from \cite{cesinh} in 
+Table~\ref{tab:ces}.
+
+
+
+\begin{verbatim}
+Derr = (DataSN-DataQMC)./DataSN
+\end{verbatim}
 
 
 
