@@ -1,5 +1,5 @@
-# Krylov_NDA: some progress
-Draft of Krylov-NDA paper:
+# Krylov_QMC: some progress
+Draft of Krylov-QMC paper:
 
 Sam, Ryan, this is the private repo for the paper. I am getting the data into the results section. This is more pain that I expected becasue the notebook->tex map
 works out of the box for my book project and for a simple pdf job. It does not as work well for journal publications. I should be done pretty soon anyhow.
@@ -7,6 +7,8 @@ works out of the box for my book project and for a simple pdf job. It does not a
 When we submit, we will need a new repo for reproducibility. The NDA-QMC repo is a bit to messy for that and I will start porting code from the NDA-QMC repo to
 a stand-alone thing when I'm done with the results section. I will put those codes in this repo first so all of us can play with them and make sure we like the
 results.
+
+Ryan, I made you the corresponding author. Your the one with the most gravatis at the ANS.
 
 Organization: 
 
