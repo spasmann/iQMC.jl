@@ -19,20 +19,35 @@ The boundary conditions are
 \mu < 0.
 \]
 
-In the computaions we use
+\subsection{Source Iteration and Linear Solvers}
+\label{subsec:source}
+
+Source iteration is Picard iteration for the fixed point problem
+\[
+\phi = \cals(\phi, q, \psi_l, \psi_r)
+\]
+To use other solvers we must convert to a linear system via
+\[
+\calk(\phi) = \cals(\phi, 0, 0, 0) \mbox{ and }
+f = \cals(0, q, \psi_l, \psi_r)
+\]
+to get
+\[
+A \phi \equiv (I - \calk) \phi = f,
+\]
+which we can send to a linear solver.
+
+In the computaions we use the problem from \cite{cesinh}
 \[
 \tau=5, \Sigma_s(x) =\omega_0 e^{-x/s},  \Sigma_t(x) = 1, q(x) = 0, \psi_l(\mu) = 1, \psi_r(\mu) = 0,
 \]
 and consider two cases $s=1$ and $s=\infty$ 
 
-\subsection{Source Iteration and Linear Solvers}
-\label{subsec:source}
+\clearpage
 
 \subsection{QMC and Krylov Linear Solvers}
 \label{subsec:krylov}
 
-We use two krylov methods \cite{ctk:roots}, GMRES \cite{gmres} and
-Bi-CGSTAB \cite{bicgstab}.
 
 The linear and nonlinear solvers come from the Julia package
 \href{https://github.com/ctkelley/SIAMFANLEquations.jl}{SIAMFANLEQ.jl}
@@ -42,23 +57,31 @@ The linear and nonlinear solvers come from the Julia package
 that accompany the package. 
 
 
-I can solve the QMC linear problem with both Krylov methods now and,
-just like the classical case, I'm seeing fewer than half of the number
-of transport sweeps. Herewith the results for N=1000 and Nx= 100.
+We solve the QMC linear problem with N=1000 and Nx= 100. 
+We use two krylov methods \cite{ctk:roots}, GMRES \cite{gmres} and
+Bi-CGSTAB \cite{bicgstab}.  Figures~\ref{fig:easy} and 
+\ref{fig:hard} show that
+the Krylov iterations take fewer than half of the number
+of transport sweeps that Picard iteration required.
 
-\begin{figure}[t]%[!htbp]
+\vspace*{.25in}
+
+\begin{figure}[h]
   \centering
   \includegraphics[trim = 10mm 0mm 15mm 15mm, width=70mm]{FIGURES/seqone.png}
   \caption{$s = 1$}
   \label{fig:easy}
 \end{figure}
 
-\begin{figure}[t]%[!htbp]
+
+\begin{figure}[h]
   \centering
   \includegraphics[trim = 10mm 0mm 15mm 15mm, width=70mm]{FIGURES/seqinf.png}
   \caption{$s = \infty$}
   \label{fig:hard}
 \end{figure}
+
+\clearpage
 
 \subsection{Validation and calibration study}
 \label{validation-and-calibration-study}
@@ -81,7 +104,7 @@ The exit distributions, as is clear from Table~\ref{tab:cesone}
 can vary by five orders of magnitude. Even so, the results from QMC
 agree with the benchmarks to roughly two figues.
 
-\begin{table}
+\begin{table}[h]
 \centering
 \caption{Exit Distributiions: $s = 1$}
 \label{tab:cesone}
@@ -109,7 +132,7 @@ agree with the benchmarks to roughly two figues.
 \end{table}
 
 
-\begin{table}
+\begin{table}[h]
 \centering
 \caption{Exit Distributiions: $s = \infty$}
 \label{tab:cesinf}

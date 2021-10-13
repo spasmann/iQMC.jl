@@ -17,21 +17,6 @@
   \textsc{H.~K. Park}, \enquote{Hybrid Deterministic/{Monte Carlo} Neutronics,}
   \emph{SIAM J. Sci. Comp.}, \textbf{35}, S62 (2013).
 
-\bibitem{ctk:roots}
-\textsc{C.~T. Kelley}, \emph{{Iterative Methods for Linear and Nonlinear
-  Equations}}, no.~16 in Frontiers in Applied Mathematics, SIAM, Philadelphia
-  (1995).
-
-\bibitem{gmres}
-\textsc{Y.~Saad} and \textsc{M.~Schultz}, \enquote{{GMRES} a generalized
-  minimal residual algorithm for solving nonsymmetric linear systems,}
-  \emph{SIAM J. Sci. Stat. Comp.}, \textbf{7}, 856 (1986).
-
-\bibitem{bicgstab}
-\textsc{H.~A. van~der Vorst}, \enquote{{Bi-CGSTAB}: A fast and smoothly
-  converging variant to {Bi-CG} for the solution of nonsymmetric systems,}
-  \emph{SIAM J. Sci. Statist. Comput.}, \textbf{13}, 631 (1992).
-
 \bibitem{ctk:siamfanl}
 \textsc{C.~T. Kelley}, \enquote{{SIAMFANLEquations.jl},}
   https://github.com/ctkelley/SIAMFANLEquations.jl (2020);
@@ -51,5 +36,20 @@
 \textsc{C.~T. Kelley}, \enquote{{Solving Nonlinear Equations with Iterative
   Methods: Solvers and Examples in Julia},}  (2020)Unpublished book ms, under
   contract with SIAM.
+
+\bibitem{ctk:roots}
+\textsc{C.~T. Kelley}, \emph{{Iterative Methods for Linear and Nonlinear
+  Equations}}, no.~16 in Frontiers in Applied Mathematics, SIAM, Philadelphia
+  (1995).
+
+\bibitem{gmres}
+\textsc{Y.~Saad} and \textsc{M.~Schultz}, \enquote{{GMRES} a generalized
+  minimal residual algorithm for solving nonsymmetric linear systems,}
+  \emph{SIAM J. Sci. Stat. Comp.}, \textbf{7}, 856 (1986).
+
+\bibitem{bicgstab}
+\textsc{H.~A. van~der Vorst}, \enquote{{Bi-CGSTAB}: A fast and smoothly
+  converging variant to {Bi-CG} for the solution of nonsymmetric systems,}
+  \emph{SIAM J. Sci. Statist. Comput.}, \textbf{13}, 631 (1992).
 
 \end{thebibliography}
