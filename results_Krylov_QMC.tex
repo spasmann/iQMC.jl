@@ -25,7 +25,10 @@ In the computaions we use
 \]
 and consider two cases $s=1$ and $s=\infty$ 
 
-\subsection{Using Krylov Linear Solvers}
+\subsection{Source Iteration and Linear Solvers}
+\label{subsec:source}
+
+\subsection{QMC and Krylov Linear Solvers}
 \label{subsec:krylov}
 
 We use two krylov methods \cite{ctk:roots}, GMRES \cite{gmres} and
@@ -38,11 +41,6 @@ The linear and nonlinear solvers come from the Julia package
 \cite{ctk:notebooknl} and the book \cite{ctk:fajulia}
 that accompany the package. 
 
-\subsection{Source Iteration and Krylov Methods}
-
-
-\subsection{QMC and Krylov Linear Solvers}
-\label{qmc-and-krylov-linear-solvers}
 
 I can solve the QMC linear problem with both Krylov methods now and,
 just like the classical case, I'm seeing fewer than half of the number
