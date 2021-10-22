@@ -37,7 +37,7 @@ A \phi \equiv (I - \calk) \phi = f,
 \]
 which we can send to a linear solver.
 
-In the computaions we use the problem from \cite{cesinh}
+In the computations we use the problem from \cite{cesinh}
 \[
 \tau=5, \Sigma_s(x) =\omega_0 e^{-x/s},  \Sigma_t(x) = 1, q(x) = 0, \psi_l(\mu) = 1, \psi_r(\mu) = 0,
 \]
@@ -102,18 +102,19 @@ Tables~\ref{tab:cesone} and \ref{tab:cesinf}.
 
 The exit distributions, as is clear from Table~\ref{tab:cesone}
 can vary by five orders of magnitude. Even so, the results from QMC
-agree with the benchmarks to roughly two figues.
+agree with the benchmarks to roughly two figures.
 
 \begin{table}[h]
 \centering
-\caption{Exit Distributiions: $s = 1$}
+\caption{Exit Distributions: $s = 1$}
 \label{tab:cesone}
 \centerline{
 \begin{tabular}{lllll}
  & \multicolumn{2}{c}{Garcia/Siewert}
  & \multicolumn{2}{c}{QMC}\\
 \hline
-    $\mu$ &$\psi(0, -\mu)$ &$\psi(\tau, -\mu)$ &$\psi(0, -\mu)$ &$\psi(\tau, -\mu)$ \\
+\hline
+$\mu$ &$\psi(0, -\mu)$ &$\psi(\tau, \mu)$ &$\psi(0, -\mu)$ &$\psi(\tau, \mu)$ \\
 \hline
 5.00e-02 &  5.89664e-01 &  6.07488e-06 &  5.71197e-01 &  5.85487e-06   \\
 1.00e-01 &  5.31120e-01 &  6.92516e-06 &  5.22137e-01 &  6.66741e-06   \\
@@ -134,13 +135,13 @@ agree with the benchmarks to roughly two figues.
 
 \begin{table}[h]
 \centering
-\caption{Exit Distributiions: $s = \infty$}
+\caption{Exit Distributions: $s = \infty$}
 \label{tab:cesinf}
 \begin{tabular}{lllll}
  & \multicolumn{2}{c}{Garcia/Siewert}
  & \multicolumn{2}{c}{QMC}\\
 \hline
-    $\mu$ &$\psi(0, -\mu)$ &$\psi(\tau, -\mu)$ &$\psi(0, -\mu)$ &$\psi(\tau, -\mu)$ \\
+$\mu$ &$\psi(0, -\mu)$ &$\psi(\tau, \mu)$ &$\psi(0, -\mu)$ &$\psi(\tau, \mu)$ \\
 \hline
 5.00e-02 &  8.97798e-01 &  1.02202e-01 &  8.47454e-01 &  1.00663e-01   \\
 1.00e-01 &  8.87836e-01 &  1.12164e-01 &  8.52822e-01 &  1.10325e-01   \\
@@ -155,4 +156,61 @@ agree with the benchmarks to roughly two figues.
 1.00e+00 &  7.38721e-01 &  2.61279e-01 &  7.33889e-01 &  2.61361e-01   \\
 \hline
 \end{tabular}
+\end{table}
+
+In Tables \ref{tab:bigtab1} and \ref{tab:bigtabinf} we look at the
+relative errors in the QMC exit distributions as compared to a highly
+accurate SN result. We compensate for the widely varying scales by tabulating,
+for each value of $N$ and $Nx$
+\[
+R = \max(R^0, R^\tau)
+\]
+where
+\[
+R^0 = \max_\mu
+\frac{ | \psi^{SN}(0,-\mu) - \psi^{QMC}(0,-\mu) | }{\psi^{SN}(0,-\mu) }
+\]
+and
+\[
+R^\tau = \max_\mu
+\frac{ | \psi^{SN}(\tau,\mu) - \psi^{QMC}(\tau,\mu) | }{\psi^{SN}(\tau,\mu) }.
+\]
+
+{\bf Ryan, for large Nx I see convergence as N increases. Is it clearly
+$1/N$? Am I missing something? Am I tabulating the wrong thing?}
+
+\begin{table}[h]
+\centering
+\caption{Exit Distributions Errors: $s = 1.0$}
+\label{tab:bigtab1}
+\begin{tabular}{l|lllll} 
+Nx \textbackslash N &     1000 &     2000 &     4000 &     8000 &    16000 \\ 
+\hline 
+50 & 1.41162e-01& 1.36428e-01& 1.34747e-01& 1.35736e-01& 1.35577e-01   \\ 
+100 & 7.08438e-02& 6.60744e-02& 6.52017e-02& 6.51605e-02& 6.49914e-02   \\ 
+200 & 4.17171e-02& 3.30480e-02& 3.23088e-02& 3.21432e-02& 3.17467e-02   \\ 
+400 & 4.55590e-02& 1.73115e-02& 1.63072e-02& 1.61542e-02& 1.58469e-02   \\ 
+800 & 4.83754e-02& 1.93087e-02& 1.29178e-02& 8.30117e-03& 7.96562e-03   \\ 
+1600 & 5.07584e-02& 2.03691e-02& 1.44681e-02& 4.52388e-03& 4.11350e-03   \\ 
+3200 & 5.09694e-02& 2.13418e-02& 1.48086e-02& 2.88667e-03& 2.18194e-03   \\ 
+\hline 
+\end{tabular} 
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{Exit Distributions Errors: $s = \infty$}
+\label{tab:bigtabinf}
+\begin{tabular}{l|lllll} 
+Nx \textbackslash N &     1000 &     2000 &     4000 &     8000 &    16000 \\ 
+\hline 
+50 & 5.95648e-02& 2.42755e-02& 1.36521e-02& 1.29509e-02& 1.22769e-02   \\ 
+100 & 5.60749e-02& 2.31030e-02& 1.31680e-02& 6.45949e-03& 6.59550e-03   \\ 
+200 & 5.62864e-02& 2.32524e-02& 1.42149e-02& 4.77319e-03& 3.55246e-03   \\ 
+400 & 5.30954e-02& 2.17854e-02& 1.48225e-02& 4.73260e-03& 2.05558e-03   \\ 
+800 & 7.66264e-02& 1.88155e-02& 1.60082e-02& 4.34610e-03& 1.41402e-03   \\ 
+1600 & 5.99376e-02& 2.15675e-02& 1.56784e-02& 4.21636e-03& 1.29138e-03   \\ 
+3200 & 5.74319e-02& 1.89482e-02& 2.00195e-02& 3.26688e-03& 1.49649e-03   \\ 
+\hline 
+\end{tabular} 
 \end{table}
