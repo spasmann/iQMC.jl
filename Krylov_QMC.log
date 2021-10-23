@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  22 OCT 2021 14:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  23 OCT 2021 19:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -497,7 +497,9 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [6] [7] (./Krylov_QMC.bbl
+) [6] [7] [8
+
+] [9] (./Krylov_QMC.bbl
 Overfull \hbox (9.76057pt too wide) in paragraph at lines 21--26
 []\OT1/cmr/m/sc/10 C. T. Kel-ley\OT1/cmr/m/n/10 , ``SIAMFAN-LE-qua-tions.jl,'' 
 https://github.com/ctkelley/SIAMFANLEquations.jl
@@ -517,20 +519,20 @@ lin-ear Equa-tions with It-er-a-tive Meth-ods:
 
 ) 
 AED: lastpage setting LastPage
-[8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 62.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 62.
+[10]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 64.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 64.
  (./Krylov_QMC.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 62.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 62.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 64.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 64.
 Package rerunfilecheck Info: File `Krylov_QMC.out' has not changed.
 (rerunfilecheck)             Checksum: 1EECC804A3686DD4B7EEAE986221AD51;427.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 62.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 64.
  ) 
 Here is how much of TeX's memory you used:
- 12004 strings out of 492616
- 171869 string characters out of 6129482
- 269293 words of memory out of 5000000
+ 12006 strings out of 492616
+ 171882 string characters out of 6129482
+ 269297 words of memory out of 5000000
  15771 multiletter control sequences out of 15000+600000
  9273 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -551,10 +553,10 @@ ve/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive
 /2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/
 2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2
 019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on Krylov_QMC.pdf (8 pages, 261137 bytes).
+Output written on Krylov_QMC.pdf (10 pages, 261770 bytes).
 PDF statistics:
- 183 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
- 30 named destinations out of 1000 (max. 500000)
+ 192 PDF objects out of 1000 (max. 8388607)
+ 158 compressed objects within 2 object streams
+ 32 named destinations out of 1000 (max. 500000)
  59 words of extra memory for PDF output out of 10000 (max. 10000000)
 
