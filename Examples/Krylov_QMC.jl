@@ -9,6 +9,8 @@ using SparseArrays
 using SuiteSparse
 using PyPlot
 using Printf
+using Random
+using GoldenSequences
 using Sobol
 
 export fprintTeX
@@ -18,9 +20,13 @@ export qmc_source_iteration
 export qmc_test
 
 include("Tools/fprintTex.jl")
-include("Garcia-Siewert/Sam_GS/qmc_init.jl")
-include("Garcia-Siewert/Sam_GS/qmc_sweep.jl")
-include("Garcia-Siewert/Sam_GS/qmc_source_iteration.jl")
-include("Garcia-Siewert/Sam_GS/qmc_test.jl")
+include("Sam_Original/qmc_init.jl")
+include("Sam_Original/qmc_sweep.jl")
+include("Sam_Original/qmc_source_iteration.jl")
+include("Sam_Original/move_part.jl")
+include("Sam_Original/misc_functions.jl")
+include("Sam_Original/tests/garcia.jl")
+
+
 
 end
