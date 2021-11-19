@@ -1,3 +1,4 @@
+% !TEX root = Krylov_QMC.tex
 \section{Computational Results}
 \label{sec:results}
 In this section we consider an example from
@@ -18,6 +19,41 @@ The boundary conditions are
 \psi(0, \mu) = \psi_l(\mu), \mu > 0; \psi(\tau, \mu) = \psi_r(\mu),
 \mu < 0.
 \]
+
+\subsection{Multigroup Equations}
+In general geometry the multigroup equations are 
+\begin{equation}\label{eq:MG}
+\mu  \frac{\partial \psi_g}{\partial x} (x,\mu) + \Sigma_{t,g}(x) \psi_g(x,\mu) =
+\frac{1}{2} \sum_{g'=1}^G \Sigma_{s,g'\rightarrow g}(x) \int_{-1}^1 \psi_{g'}(x, \mu') \dmup + \frac{q_g(x)}{2} \quad g=1,\dots,G.
+\end{equation}The boundary conditions are
+\[
+\psi_g(0, \mu) = \psi_{l,g}(\mu), \mu > 0; \psi_g(\tau, \mu) = \psi_{r,g}(\mu),
+\mu < 0.
+\]
+In matrix form, these equations are
+\begin{equation}\label{eq:MGmat}
+\mu  \frac{\partial \vec{\psi}}{\partial x} (x,\mu) + \underline{\Sigma}_{t}(x) \vec{\psi}(x,\mu) =
+\frac{1}{2}  \underline{\Sigma}_{s}(x) \int_{-1}^1 \vec{\psi}(x, \mu') \dmup + \frac{\vec{q}(x)}{2},
+\end{equation}
+where
+\begin{equation}\label{eq:vecs}
+\vec{\psi} = (\psi_1, \psi_2, \dots, \psi_G)^\mathrm{T}, \qquad \vec{q} = (q_1, q_2, \dots, q_G)^\mathrm{T}, 
+\end{equation}
+\begin{equation}\label{eq:MatricesT}
+ \underline{\Sigma}_{t}(x)  = \begin{pmatrix} \Sigma_{t,1}(x) & 0 & \dots\\
+ 0 & \Sigma_{t,2}(x) & 0 \dots \\
+ \vdots & & \ddots\\ 
+ 0 & \dots & 0 & \Sigma_{t,G}(x) 
+ \end{pmatrix}, 
+\end{equation}
+and
+\begin{equation}\label{eq:MatricesS}
+ \underline{\Sigma}_{s}(x)  = \begin{pmatrix} \Sigma_{s,1\rightarrow 1}(x) & \Sigma_{s,2\rightarrow 1}(x)  & \dots & \Sigma_{s,G\rightarrow 1}(x) \\
+ \Sigma_{s,2\rightarrow 1}(x) & \Sigma_{s,2\rightarrow 1}(x)  & \dots & \Sigma_{s,G\rightarrow 2}(x) \\
+ \vdots & \vdots & & \vdots\\
+ \Sigma_{s,G\rightarrow 1}(x) & \Sigma_{s,G\rightarrow 1}(x)  & \dots & \Sigma_{s,G\rightarrow G}(x) \\
+ \end{pmatrix},.
+\end{equation}
 
 \subsection{Source Iteration and Linear Solvers}
 \label{subsec:source}
