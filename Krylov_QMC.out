@@ -1,6 +1,7 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
 \BOOKMARK [1][-]{section.2}{Computational\040Results}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Source\040Iteration\040and\040Linear\040Solvers}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{QMC\040and\040Krylov\040Linear\040Solvers}{section.2}% 4
-\BOOKMARK [2][-]{subsection.2.3}{Validation\040and\040calibration\040study}{section.2}% 5
-\BOOKMARK [1][-]{section.3}{Conclusion}{}% 6
+\BOOKMARK [2][-]{subsection.2.1}{Multigroup\040Equations}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Source\040Iteration\040and\040Linear\040Solvers}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{QMC\040and\040Krylov\040Linear\040Solvers}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Validation\040and\040calibration\040study}{section.2}% 6
+\BOOKMARK [1][-]{section.3}{Conclusion}{}% 7
