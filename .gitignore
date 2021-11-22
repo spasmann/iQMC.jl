@@ -1,6 +1,9 @@
 Raw_Materials
 *spell
+*log
+*aux
+*out
+*blg
 Examples/Sam_Original
 Examples/XCTK_Versions
 Examples/Nuke_Me
-*log
