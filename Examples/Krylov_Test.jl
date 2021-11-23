@@ -20,19 +20,31 @@ import Distributions: Uniform
 export fprintTeX
 export qmc_init
 export qmc_sweep
-export qmc_source_iteration
-export qmc_test
 export garcia_init
 export sn_tabulate
 export it_compare
 export X_gmres
 export xgmres_base
+export gmres_test
 export gmrestst
 export sanity
 export Xbase
+export SamFix
+export SamFix!
+export SamRhs
+export SamMxv
+export SamPicard
+export SamGarciaInit
+export SamGarciaInitMV
+export SamAA0
+export SamAA
 
 
 include("Tools/fprintTex.jl")
+include("Tools/SamMaps.jl")
+include("Tools/SamSolvers.jl")
+include("Garcia/SamGarciaInit.jl")
+include("Garcia/gmres_test.jl")
 include("Garcia/X_gmres.jl")
 include("Garcia/Xbase.jl")
 include("Garcia/gmrestst.jl")
@@ -44,7 +56,7 @@ include("Garcia/transport_sweep.jl")
 
 include("Sam_Original/functions/qmc_init.jl")
 include("Sam_Original/functions/qmc_sweep.jl")
-include("Sam_Original/functions/qmc_source_iteration.jl")
+#include("Sam_Original/functions/qmc_source_iteration.jl")
 include("Sam_Original/functions/move_part.jl")
 include("Sam_Original/functions/misc_functions.jl")
 
