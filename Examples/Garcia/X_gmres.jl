@@ -1,5 +1,5 @@
 """
-kl\\_gmres(x0, b, atv, V, eta, ptv=nothing; X_store=nothing; 
+X\\_gmres(x0, b, atv, V, eta, ptv=nothing; X_store=nothing; 
              orth = "cgs2", side="right", lmaxit=-1, pdata=nothing)
 
 Gmres linear solver. Handles preconditioning and restarts. 
@@ -299,9 +299,7 @@ function xgmres_base(x0, b, atv, V, eta, pdata; orth = "cgs2", lmaxit = -1)
     #
     #    kmax = m - 1
     kmax = m
-println("lmaxit = $lmaxit, kmax = $kmax, m = $m")
     lmaxit == -1 || (kmax = lmaxit)
-println("lmaxit = $lmaxit, kmax = $kmax")
     kmax > m - 1 && error("lmaxit error in xgmres_base")
     r = pdata.restmp
     r .= b
@@ -371,6 +369,12 @@ println("lmaxit = $lmaxit, kmax = $kmax")
         rho = abs(g[k+1])
         (nu > 0.0) || (println("near breakdown"); rho=0.0;)
         push!(reshist, rho)
+z=copy(x0)
+y = h[1:k, 1:k] \ g[1:k]
+qmf = view(V, 1:n, 1:k)
+mul!(z, qmf, y, 1.0, 1.0)
+resz=b-atv(z,pdata)
+println(norm(resz),"  ",rho)
     end
     #
     # At this point either k = kmax or rho < errtol.
@@ -378,11 +382,6 @@ println("lmaxit = $lmaxit, kmax = $kmax")
     #
     y = h[1:k, 1:k] \ g[1:k]
     qmf = view(V, 1:n, 1:k)
-    #    mul!(r, qmf, y)
-    #    r .= qmf*y    
-    #    x .+= r
-    #    sol = x0
-    #    mul!(sol, qmf, y, 1.0, 1.0)
     mul!(x0, qmf, y, 1.0, 1.0)
     (rho <= errtol) || (idid = false)
     k > 0 || println("GMRES iteration terminates on entry.")

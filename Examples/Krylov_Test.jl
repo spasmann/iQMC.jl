@@ -36,12 +36,16 @@ export SamMxv
 export SamPicard
 export SamGarciaInit
 export SamGarciaInitMV
+export SamGmres
 export SamAA0
 export SamAA
+export FixedTest
 
 
 include("Tools/fprintTex.jl")
 include("Tools/SamMaps.jl")
+include("Tools/SamTests.jl")
+include("Tools/SamGmres.jl")
 include("Tools/SamSolvers.jl")
 include("Garcia/SamGarciaInit.jl")
 include("Garcia/gmres_test.jl")

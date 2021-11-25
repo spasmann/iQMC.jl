@@ -29,6 +29,7 @@ function test3x3()
     V32= zeros(Float32,3, 10);
     b = [1.0; 1.0; 1.0];
     x0 = zeros(3);
+#    x0 = ones(3);
     eta = 1.e-10
     passgm = true
     rightsize = [10, 6, 5, 4]
