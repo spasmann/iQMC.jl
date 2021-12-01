@@ -93,7 +93,7 @@ The linear and nonlinear solvers come from the Julia package
 that accompany the package. 
 
 
-We solve the QMC linear problem with N=1000 and Nx= 100. 
+We solve the QMC linear problem with N=2048 and Nx= 100. 
 We use two krylov methods \cite{ctk:roots}, GMRES \cite{gmres} and
 Bi-CGSTAB \cite{bicgstab}.  Figures~\ref{fig:easy} and 
 \ref{fig:hard} show that
@@ -102,13 +102,19 @@ of transport sweeps that Picard iteration required.
 
 \vspace*{.25in}
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[trim = 10mm 0mm 15mm 15mm, width=70mm]{FIGURES/seqone.png}
-  \caption{$s = 1$}
-  \label{fig:easy}
+\begin{figure}
+\centerline{
+\includegraphics[width=3.5in]{FIGURES/seqone.pdf}
+}
+\caption{\label{fig:easy} $s=1$}
 \end{figure}
 
+\begin{figure}
+\centerline{
+\includegraphics[width=3.5in]{FIGURES/seqinf.pdf}
+}
+\caption{\label{fig:easypdf} $s=1$}
+\end{figure}
 
 \begin{figure}[h]
   \centering

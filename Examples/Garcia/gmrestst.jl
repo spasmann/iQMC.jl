@@ -79,10 +79,8 @@ println("linear test = $normtest")
 V=zeros(Nv,10)
 phi1=reshape(phic,Nv,)
 phi0=zeros(Nv,)
-#gmres_out=X_gmres(phi0, b1, mxb_garciav3, V, 1.e-8; pdata=qmc_data_it)
-#gsol=gmres_out.sol
-gsol=zeros(Nv,)
-gmres_out=Xbase(gsol, b1, mxb_garciav3, V, 1.e-8, qmc_data_it; lmaxit=9)
+gmres_out=kl_gmres(phi0, b1, mxb_garciav3, V, 1.e-8; pdata=qmc_data_it)
+gsol=gmres_out.sol
 #
 # Solve with Picard
 #
