@@ -240,9 +240,9 @@ function garcia_init(Geometry, generator, N, LB, RB, Nx, na2, s)
         G = size(sigt)[1] # number of groups
         sigt = ones(Nx,G).*sigt
         sigt = hcat(sigt)
-        source_strength = 0.0
+        source_strength = 0.0 # volumetric source strength. NOT boundary
         source = source_strength*ones(Nx,G)
-        sigsFunc(x) = exp.(-x/s)
+        sigsFunc(x) = exp.(-x/s[1])
         sigs = sigsFunc(midpoints)
 
         #phi_avg is defaulted to = zeros(Nx)
@@ -266,8 +266,8 @@ function garcia_init(Geometry, generator, N, LB, RB, Nx, na2, s)
             error("Geometry must be: 'Slab', 'Cylinder', or 'Sphere'")
         end
 
-        phi_left = [1.0]
-        phi_right = [0.0]
+        phi_left = [1.0] # left boundary source strength
+        phi_right = [0.0] # right boundary source strength
 
         qmc_data = (        Geo = Geo,
                             N = N,

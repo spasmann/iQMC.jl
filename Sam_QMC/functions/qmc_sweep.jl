@@ -10,7 +10,7 @@ volumetric). Returns flux values for iteration.
 * `qmc_data::NamedTuple`: various problem initializiations in qmc_init.jl.
 ...
 """
-function qmc_sweep(q, qmc_data)
+function qmc_sweep(phi_avg, qmc_data)
 
     N = qmc_data.N
     Nx = qmc_data.Nx
@@ -35,11 +35,16 @@ function qmc_sweep(q, qmc_data)
     exit_right_bins[:,2] .= 0
 
     sigt = qmc_data.sigt
+    sigs = qmc_data.sigs
+    source = qmc_data.source
     c = qmc_data.c
     generator =qmc_data.generator
 
     phi_right = qmc_data.phi_right
     phi_left = qmc_data.phi_left
+
+    #q = phi_avg*sigs' + source # multi group data
+    q =  phi_avg.*sigs + source # garcia tests and infinite medium problems
 
     phi_avg = zeros(Nx,G)
     phi_edge = zeros(Nx+1,G)
