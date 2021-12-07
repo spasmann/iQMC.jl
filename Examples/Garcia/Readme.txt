@@ -7,13 +7,12 @@ structure and make the runs for all the examples. I am not there yet.
 
 The codes take some time to run.
 
-- it_compare.jl
+- Make_Plots_Iterations_GS.jl 
   Compare the performance of Picard/GMRES/BiCGstab for N=2^11, Nx=100
   for the two cases s=1 and s=Inf.
-  The call it_compare() makes the plot for the s=1 case.
-  The call it_compare(2^11, 100, Inf) makes the plot for the s=Inf case. 
+  The call Make_Plots_Iterations_GS.jl() makes the plot for the s=1 case.
+  The call Make_Plots_Iterations_GS.jl(2^11, 100, Inf) makes the plot 
+    for the s=Inf case. 
 
   The plots are in the Krylov_QMC/FIGURES
-
-
 

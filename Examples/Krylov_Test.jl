@@ -22,7 +22,7 @@ export qmc_init
 export qmc_sweep
 export garcia_init
 export sn_tabulate
-export it_compare2
+export Make_Plots_Iterations_GS
 export SamFix
 export SamFix!
 export SamRhs
@@ -45,7 +45,7 @@ include("Tools/Solver_Compare.jl")
 include("Garcia/SamGarciaInit.jl")
 include("Garcia/sn_tabulate.jl")
 include("Garcia/sn_init.jl")
-include("Garcia/it_compare2.jl")
+include("Garcia/Make_Plots_Iterations_GS.jl")
 include("Garcia/transport_sweep.jl")
 #include("Garcia/Results_Table.jl")
 
