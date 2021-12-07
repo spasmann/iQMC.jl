@@ -7,14 +7,17 @@ Nv=Nx*G
 V=zeros(Nv,20)
 phi0=zeros(Nv,)
 tol=1.e-10
-maxit=100
+maxit=200
 gmres_out=kl_gmres(phi0,b,SamMxv,V,tol; pdata=mxv_data)
 ghist=gmres_out.reshist./gmres_out.reshist[1]
-bicgstab_out=kl_bicgstab(phi0,b,SamMxv,V,tol; pdata=mxv_data)
+bicgstab_out=kl_bicgstab(phi0,b,SamMxv,V,tol; pdata=mxv_data, lmaxit=50)
 bhist=bicgstab_out.reshist./bicgstab_out.reshist[1]
 picard_out=SamPicard(phi0,SamFix,tol,maxit,qmc_data)
 phist=picard_out.reshist./picard_out.reshist[1]
+gdiff=norm(picard_out.sol-gmres_out.sol)
+bdiff=norm(picard_out.sol-bicgstab_out.sol)
 Compare_Plot(ghist,phist,bhist,plabel)
+println("gmres diff = $gdiff, BiCGSTAB diff = $bdiff")
 end
 
 function Compare_Plot(ghist,phist,bhist,plabel)
