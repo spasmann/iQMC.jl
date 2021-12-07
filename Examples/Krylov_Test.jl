@@ -22,16 +22,14 @@ export qmc_init
 export qmc_sweep
 export garcia_init
 export sn_tabulate
-export it_compare
-export gmrestst
-export sanity
+export it_compare2
 export SamFix
 export SamFix!
 export SamRhs
 export SamMxv
 export SamPicard
 export SamGarciaInit
-export SamGarciaInitMV
+export SamInitMV
 export SamGmres
 export SamAA0
 export SamAA
@@ -43,19 +41,19 @@ include("Tools/SamMaps.jl")
 include("Tools/SamTests.jl")
 include("Tools/SamGmres.jl")
 include("Tools/SamSolvers.jl")
+include("Tools/Solver_Compare.jl")
 include("Garcia/SamGarciaInit.jl")
-include("Garcia/gmrestst.jl")
 include("Garcia/sn_tabulate.jl")
 include("Garcia/sn_init.jl")
-include("Garcia/sanity.jl")
-include("Garcia/it_compare.jl")
+include("Garcia/it_compare2.jl")
 include("Garcia/transport_sweep.jl")
+#include("Garcia/Results_Table.jl")
 
-include("Sam_Dec_1/functions/qmc_sweep.jl")
-include("Sam_Dec_1/functions/qmc_init.jl")
-#include("Sam_Dec_1/functions/qmc_source_iteration.jl")
-include("Sam_Dec_1/functions/move_part.jl")
-include("Sam_Dec_1/functions/misc_functions.jl")
+include("../Sam_QMC/functions/qmc_sweep.jl")
+include("../Sam_QMC/functions/qmc_init.jl")
+#include("../Sam_QMC/functions/qmc_source_iteration.jl")
+include("../Sam_QMC/functions/move_part.jl")
+include("../Sam_QMC/functions/misc_functions.jl")
 
 
 

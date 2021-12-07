@@ -32,3 +32,9 @@ mxv=mxpb-b
 axv=phi_in - mxv
 return axv
 end
+
+function SamInitMV(qmc_data)
+b=SamRhs(qmc_data)
+mxv_data = (b=b, qmc_data=qmc_data)
+return mxv_data
+end
