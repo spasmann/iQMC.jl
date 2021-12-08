@@ -34,6 +34,7 @@ export SamGmres
 export SamAA0
 export SamAA
 export FixedTest
+export Results_Table
 
 
 include("Tools/fprintTex.jl")
@@ -47,7 +48,7 @@ include("Garcia/sn_tabulate.jl")
 include("Garcia/sn_init.jl")
 include("Garcia/Make_Plots_Iterations_GS.jl")
 include("Garcia/transport_sweep.jl")
-#include("Garcia/Results_Table.jl")
+include("Garcia/Results_Table.jl")
 
 include("../Sam_QMC/functions/qmc_sweep.jl")
 include("../Sam_QMC/functions/qmc_init.jl")
