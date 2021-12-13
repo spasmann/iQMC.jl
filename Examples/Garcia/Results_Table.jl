@@ -1,4 +1,4 @@
-function Results_Table(N=2^11, Nx=100, s=1.0; printscreen=true)
+function Results_Table(N=2^11, Nx=100, s=1.0; maketab=true)
 qmc_data=SamGarciaInit(N, Nx, s)
 s == Inf ? strs = L"\infty" : strs = string(s)
 plabel= string("s= ", strs)
@@ -14,7 +14,5 @@ tol=1.e-10
 maxit=200
 gmres_out=kl_gmres(phi0,b,SamMxv,V,tol; pdata=mxv_data, lmaxit=maxit)
 sol=gmres_out.sol
-if printscreen
-tabout=sn_tabulate(s, Nx, sol; phiedge=false)
-end
+tabout=gs_tabulate(s, Nx, sol; maketab=maketab, phiedge=false)
 end

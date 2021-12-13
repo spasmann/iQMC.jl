@@ -21,7 +21,7 @@ export fprintTeX
 export qmc_init
 export qmc_sweep
 export garcia_init
-export sn_tabulate
+export gs_tabulate
 export Make_Plots_Iterations_GS
 export SamFix
 export SamFix!
@@ -35,20 +35,27 @@ export SamAA0
 export SamAA
 export FixedTest
 export Results_Table
+export Error_Table
+export readtab
+export writetab
 
 
 include("Tools/fprintTex.jl")
+include("Tools/Data_Files.jl")
 include("Tools/SamMaps.jl")
 include("Tools/SamTests.jl")
 include("Tools/SamGmres.jl")
 include("Tools/SamSolvers.jl")
 include("Tools/Solver_Compare.jl")
 include("Garcia/SamGarciaInit.jl")
-include("Garcia/sn_tabulate.jl")
+include("Garcia/gs_tabulate.jl")
 include("Garcia/sn_init.jl")
 include("Garcia/Make_Plots_Iterations_GS.jl")
 include("Garcia/transport_sweep.jl")
 include("Garcia/Results_Table.jl")
+include("Garcia/Error_Table.jl")
+include("Garcia/GS_Data_Read.jl")
+
 
 include("../Sam_QMC/functions/qmc_sweep.jl")
 include("../Sam_QMC/functions/qmc_init.jl")
