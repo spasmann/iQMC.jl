@@ -1,0 +1,5 @@
+push!(LOAD_PATH,"..");
+using Krylov_Test
+println("Showtime! s=Inf")
+Rout=Error_Table(Inf, 1.e-8, 5, 7)
+println(Rout)

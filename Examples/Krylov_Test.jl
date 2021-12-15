@@ -38,9 +38,11 @@ export Results_Table
 export Error_Table
 export readtab
 export writetab
+export TeX_Error_Table
 
 
 include("Tools/fprintTex.jl")
+include("Garcia/TeX_Error_Table.jl")
 include("Tools/Data_Files.jl")
 include("Tools/SamMaps.jl")
 include("Tools/SamTests.jl")
