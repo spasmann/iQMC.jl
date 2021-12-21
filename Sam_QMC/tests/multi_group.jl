@@ -2,23 +2,19 @@
 Sam Pasmann
 """
 
-function qmc_multiGroup()
+function qmc_multiGroup(G=12, N=2^11)
     ###############################################################################
     #### Parameters
     ###############################################################################
 
     Nx = 50     # number of tally cells
-    na2 = 11    # number of angles for angular mesh
-    s = [1]     # parameter in Garcia/Siewert
-    N = 2^11    # number of particles per itertion per source
     LB = 0      # left bound
-    RB = 500    # right bound
-    G = 12      # number of groups
+    RB = 5000    # right bound
     geometry = "Slab"
     generator = "Sobol"
 
     qmc_data = multiGroup_init(geometry, generator, N, LB, RB, Nx, G)
-    phi_avg, phi_edge, dphi, J_avg, J_edge, history, itt = qmc_source_iteration(s,qmc_data)
+    phi_avg, phi_edge, dphi, J_avg, J_edge, history, itt = qmc_source_iteration(qmc_data)
 
     ###############################################################################
     #### Plots

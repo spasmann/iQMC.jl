@@ -76,7 +76,7 @@ function qmc_sweep(phi_avg, qmc_data)
             #set phi_edge
             phi_edge[zone,:] = phi_left.*ones(G)#*surfaceArea(Geo,x)
             #total path length across zone
-            J_edge[zone,:] += weight
+            J_edge[zone,:] .+= weight
             move_part(  midpoints,mu,x,Nx,high_edges,low_edges,weight,
                         phi_avg, dphi, phi_edge, phi_s, J_avg, J_edge,sigt,
                         exit_right_bins,exit_left_bins,c,phi,z,y,Geo)
@@ -106,7 +106,7 @@ function qmc_sweep(phi_avg, qmc_data)
             #set phi_edge
             phi_edge[zone+1,:] = phi_right.*ones(G)
             #total path length across zone
-            J_edge[zone+1,:] += weight
+            J_edge[zone+1,:] .+= weight
             move_part(  midpoints,mu,x,Nx,high_edges,low_edges,weight,
                         phi_avg, dphi, phi_edge, phi_s, J_avg, J_edge,sigt,
                         exit_right_bins,exit_left_bins,c,phi,z,y,Geo)
@@ -137,8 +137,8 @@ function qmc_sweep(phi_avg, qmc_data)
         #end
     end
 
-    exit_left_bins[:,2] /= dmu
-    exit_right_bins[:,2] /= dmu
+    exit_left_bins[:,2] ./= dmu
+    exit_right_bins[:,2] ./= dmu
 
     return (phi_avg = phi_avg,
             phi_edge = phi_edge,

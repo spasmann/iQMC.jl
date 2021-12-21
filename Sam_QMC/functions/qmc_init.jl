@@ -10,8 +10,8 @@ Siewart problems.
 """
 function qmc_init(Geometry, generator, N, LB, RB, Nx, na2, s, sigs, sigt)
 
-        hasLeft = true
-        hasRight = true
+        hasLeft = false
+        hasRight = false
 
         dx = (RB-LB)/Nx
         #define tally mesh
@@ -110,9 +110,9 @@ function multiGroup_init(Geometry, generator, N, LB, RB, Nx, numGroups)
         if (numGroups != 12) && (numGroups != 70) && (numGroups != 618)
             error("Number of groups must be 12, 70, or 618.")
         end
-        D = readdlm(joinpath(@__DIR__, "./HDPE_data/D_$(numGroups)G_HDPE.csv"), ',', Float64)
-        siga = readdlm(joinpath(@__DIR__, "./HDPE_data/Siga_$(numGroups)G_HDPE.csv"), ',', Float64)
-        sigs = readdlm(joinpath(@__DIR__, "./HDPE_data/Scat_$(numGroups)G_HDPE.csv"), ',', Float64)
+        D = readdlm(joinpath(@__DIR__, "../HDPE_data/D_$(numGroups)G_HDPE.csv"), ',', Float64)
+        siga = readdlm(joinpath(@__DIR__, "../HDPE_data/Siga_$(numGroups)G_HDPE.csv"), ',', Float64)
+        sigs = readdlm(joinpath(@__DIR__, "../HDPE_data/Scat_$(numGroups)G_HDPE.csv"), ',', Float64)
         sigs = reverse(sigs, dims=2)
         sigt = 1 ./ (3*D)
 
@@ -127,6 +127,7 @@ function multiGroup_init(Geometry, generator, N, LB, RB, Nx, numGroups)
         edges = range(LB, stop=RB, length=Nx+1)
 
         #define angular flux mesh
+        na2 = 11
         dmu = 1/na2
         #right bins
         exit_right_bins = zeros((na2,2))
@@ -154,8 +155,8 @@ function multiGroup_init(Geometry, generator, N, LB, RB, Nx, numGroups)
         phi_edge = zeros(Nx+1,G)
         phi_avg = source_strength*zeros(Nx,G)
         # used for boundary sources
-        phi_left = 1.0  # source_strength
-        phi_right = 1.0 # source_strength
+        phi_left = 0.5*source_strength./siga#*N/surfaceArea(Geo,LB)
+        phi_right = 0.5*source_strength./siga#*N/surfaceArea(Geo,RB)
 
         dphi = zeros(Nx,G)
         phi_s = zeros(Nx,G) .+ 1e-6
@@ -163,7 +164,7 @@ function multiGroup_init(Geometry, generator, N, LB, RB, Nx, numGroups)
         J_avg = zeros(Nx,G)
         J_edge = zeros(Nx+1,G)
         # Garcia parameter
-        c = s
+        c = [1]
         # Geometry
         if (Geometry == "Slab")
             Geo = 1

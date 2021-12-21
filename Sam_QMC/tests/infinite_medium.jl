@@ -19,9 +19,7 @@ function qmc_infMed()
     ###############################################################################
 
     qmc_data = const_infMed_init(geometry, generator, N, LB, RB, Nx, sigs, sigt)
-    @time begin
     phi_avg, phi_edge, dphi, J_avg, J_edge, psi_right, psi_left, history, itt = qmc_source_iteration(qmc_data,1.e-3)
-    end
 
     ###############################################################################
     #### Plotting

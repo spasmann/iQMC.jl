@@ -64,8 +64,8 @@ function qmc_garcia(N=2^11, Nx=40, s=1.0)
 
 
     #left exit bins
-    figure(figsize = (5,10))
-    subplot(211)
+    figure(figsize = (10,5))
+    subplot(121)
     gsSol = zeros((11,2))
     gsSol[:,1] = -1*[0.05,.1,.2,.3,.4,.5,.6,.7,.8,.9,1]
     gsSol[:,2] = [0.58966,0.53112,0.44328,0.38031,0.33296,0.29609,0.26656,0.24239,
@@ -78,7 +78,7 @@ function qmc_garcia(N=2^11, Nx=40, s=1.0)
     legend()
 
     #right exit bins
-    subplot(212)
+    subplot(122)
     gsSol = zeros((11,2))
     gsSol[:,1] = 1*[0.05,.1,.2,.3,.4,.5,.6,.7,.8,.9,1]
     gsSol[:,2] = [6.08E-06,6.93E-06,9.64E-06,1.62E-05,4.39E-05,1.69E-04,5.73E-04,
