@@ -16,6 +16,7 @@ picard_out=SamPicard(phi0,SamFix,tol,maxit,qmc_data)
 phist=picard_out.reshist./picard_out.reshist[1]
 gdiff=norm(picard_out.sol-gmres_out.sol)
 bdiff=norm(picard_out.sol-bicgstab_out.sol)
+Compare_Plot(ghist,phist,bhist,plabel)
 println("gmres diff = $gdiff, BiCGSTAB diff = $bdiff")
 end
 
