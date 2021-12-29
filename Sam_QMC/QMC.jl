@@ -48,9 +48,8 @@ export MMul
 export test1
 export TSweep
 export getb
-export EasyInit
-
-
+export GarciaInit
+export MultiGroupInit
 
 include("functions/qmc_init.jl")
 include("functions/qmc_source_iteration.jl")

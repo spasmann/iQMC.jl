@@ -9,10 +9,12 @@ See the pdf for the details.
 """
 
 function Linear_QMC()
-    qmc_data = EasyInit()
-    b = getb(qmc_data)
+    #qmc_data = GarciaInit()
+    qmc_data = MultiGroupInit()
+    G = qmc_data.G
+    b = getb(qmc_data,G)
     Nx = qmc_data.Nx
-    phi0 = ones(Nx)
+    phi0 = ones(Nx,G)
     phi1 = TSweep(phi0, qmc_data)
     r0 = phi1 - phi0
     #
@@ -27,10 +29,11 @@ function Linear_QMC()
 end
 
 function test2()
-    qmc_data = EasyInit()
-    b = getb(qmc_data)
+    qmc_data = MultiGroupInit()
+    G = qmc_data.G
+    b = getb(qmc_data,G)
     Nx = qmc_data.Nx
-    phi0 = ones(Nx)
+    phi0 = ones(Nx,G)
     phi1 = TSweep(phi0, qmc_data)
     r0 = phi1 - phi0
     mr0 = MMul(r0, qmc_data, b)
@@ -71,15 +74,15 @@ function TSweep(phi, qmc_data)
     return phinew
 end
 
-function getb(qmc_data)
+function getb(qmc_data,G)
     Nx = qmc_data.Nx
-    zed = zeros(Nx)
+    zed = zeros(Nx,G)
     b = TSweep(zed, qmc_data)
     return b
 end
 
 
-function EasyInit()
+function GarciaInit()
     #
     # Init with usual stuff
     #
@@ -92,4 +95,19 @@ function EasyInit()
     geometry = "Slab"
     generator = "Sobol"
     qmc_data = garcia_init(geometry, generator, N, LB, RB, Nx, na2, s)
+end
+
+
+function MultiGroupInit()
+    #
+    # Init with usual stuff
+    #
+    G = 12      # number of groups
+    Nx = 10     # number of tally cells
+    N = 100     # number of particles per source itertion
+    LB = 0.0    # left bound
+    RB = 5.0    # right bound
+    geometry = "Slab"
+    generator = "Sobol"
+    qmc_data = multiGroup_init(geometry, generator, N, LB, RB, Nx, G)
 end

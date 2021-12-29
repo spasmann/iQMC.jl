@@ -116,8 +116,8 @@ function multiGroup_init(Geometry, generator, N, LB, RB, Nx, numGroups)
         sigs = reverse(sigs, dims=2)
         sigt = 1 ./ (3*D)
 
-        hasLeft = false
-        hasRight = false
+        hasLeft = true
+        hasRight = true
 
         dx = (RB-LB)/Nx
         #define tally mesh
@@ -143,6 +143,9 @@ function multiGroup_init(Geometry, generator, N, LB, RB, Nx, numGroups)
         # analytic solution
         Q = source_strength*ones(numGroups) # source
         true_flux = inv(Diagonal(sigt[:,1]) .- sigs)*Q # returns diagonal matrix
+        # used for boundary sources
+        phi_left = 0.5*true_flux #0.5*Q./siga#*N/surfaceArea(Geo,LB)
+        phi_right = 0.5*true_flux #0.5*Q./siga#*N/surfaceArea(Geo,RB)
 
         temp1 = zeros(Nx, G)
         for i in 1:G
@@ -154,9 +157,7 @@ function multiGroup_init(Geometry, generator, N, LB, RB, Nx, numGroups)
         # phi_avg is defaulted to = zeros(Nx)
         phi_edge = zeros(Nx+1,G)
         phi_avg = source_strength*zeros(Nx,G)
-        # used for boundary sources
-        phi_left = 0.5*source_strength./siga#*N/surfaceArea(Geo,LB)
-        phi_right = 0.5*source_strength./siga#*N/surfaceArea(Geo,RB)
+
 
         dphi = zeros(Nx,G)
         phi_s = zeros(Nx,G) .+ 1e-6

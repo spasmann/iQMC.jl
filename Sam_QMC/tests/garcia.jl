@@ -64,7 +64,8 @@ function qmc_garcia(N=2^11, Nx=40, s=1.0)
 
 
     #left exit bins
-    figure(figsize = (10,5))
+    figure(figsize = (12,5))
+
     subplot(121)
     gsSol = zeros((11,2))
     gsSol[:,1] = -1*[0.05,.1,.2,.3,.4,.5,.6,.7,.8,.9,1]
@@ -72,9 +73,9 @@ function qmc_garcia(N=2^11, Nx=40, s=1.0)
                                                             0.22223,0.20517,0.19055]
     plot(gsSol[:,1], gsSol[:,2],"+",label="Garcia et al.")
     plot(psi_left[:,1], psi_left[:,2],label="QMC_sweep")
-    xlabel("-mu")
-    ylabel("Left Boundary - Angular Flux Dist.")
-    title("Angular Flux Exit Distributions from Garcia et al., c = 1")
+    xlabel("mu")
+    ylabel("Angular Flux Dist.")
+    title("Left Boundary")
     legend()
 
     #right exit bins
@@ -86,7 +87,8 @@ function qmc_garcia(N=2^11, Nx=40, s=1.0)
     plot(gsSol[:,1], gsSol[:,2],"+", label="Garcia et al.")
     plot(psi_right[:,1], psi_right[:,2], label="QMC_sweep")
     xlabel("mu")
-    ylabel("Right Boundary - Angular Flux Dist.")
+    ylabel("Angular Flux Dist.")
+    title("Right Boundary")
     legend()
 
 end
