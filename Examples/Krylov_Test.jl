@@ -13,6 +13,7 @@ using DelimitedFiles
 using Random
 using Sobol
 using GoldenSequences
+using BenchmarkTools
 using PyPlot
 pygui(true)
 import Distributions: Uniform
@@ -39,8 +40,13 @@ export Error_Table
 export readtab
 export writetab
 export TeX_Error_Table
+export Sam_Bench
+export sn_init
+export garcia_test
 
 
+include("test/garcia_test.jl")
+include("Tools/Sam_Bench.jl")
 include("Tools/fprintTex.jl")
 include("Garcia/TeX_Error_Table.jl")
 include("Tools/Data_Files.jl")
