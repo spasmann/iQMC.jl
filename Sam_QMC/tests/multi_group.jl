@@ -40,7 +40,7 @@ function qmc_multiGroup(G=12, N=2^11)
     title("Group Scalar Flux")
     for i in 1:1:G
         plot(midpoints, phi_avg[:,i], label=i,color=color_sequence[i] ) #color=color_sequence[i]
-        plot(midpoints,sol[i]*ones(Nx),"--",color=color_sequence[i] )
+        plot(midpoints,sol[:,i],"--",color=color_sequence[i] )
     end
     ylabel("cell averaged flux")
     xlabel("midpoints")

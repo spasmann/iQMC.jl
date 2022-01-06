@@ -148,22 +148,25 @@ function multiGroup_init(Geometry, generator, N, LB, RB, Nx, numGroups)
         phi_right = 0.5*true_flux #0.5*Q./siga#*N/surfaceArea(Geo,RB)
 
         temp1 = zeros(Nx, G)
+        temp2 = zeros(Nx, G)
         for i in 1:G
             temp1[:,i] = ones(Nx)*sigt[i]
+            temp2[:,i] = true_flux[i]*ones(Nx)
         end
         sigt = temp1
+        true_flux = temp2
         source = source_strength*ones(Nx,G)
 
         # phi_avg is defaulted to = zeros(Nx)
         phi_edge = zeros(Nx+1,G)
         phi_avg = source_strength*zeros(Nx,G)
 
-
         dphi = zeros(Nx,G)
         phi_s = zeros(Nx,G) .+ 1e-6
         # current
         J_avg = zeros(Nx,G)
         J_edge = zeros(Nx+1,G)
+
         # Garcia parameter
         c = [1]
         # Geometry
