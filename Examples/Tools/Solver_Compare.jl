@@ -18,6 +18,7 @@ gdiff=norm(picard_out.sol-gmres_out.sol)
 bdiff=norm(picard_out.sol-bicgstab_out.sol)
 Compare_Plot(ghist,phist,bhist,plabel)
 println("gmres diff = $gdiff, BiCGSTAB diff = $bdiff")
+return gmres_out.sol
 end
 
 function Compare_Plot(ghist,phist,bhist,plabel)

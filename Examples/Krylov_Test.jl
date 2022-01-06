@@ -43,6 +43,8 @@ export TeX_Error_Table
 export Sam_Bench
 export sn_init
 export garcia_test
+export multiGroup_init
+export mg_example
 
 
 include("test/garcia_test.jl")
@@ -64,6 +66,7 @@ include("Garcia/Results_Table.jl")
 include("Garcia/Error_Table.jl")
 include("Garcia/GS_Data_Read.jl")
 
+include("MultiGroup/mg_example.jl")
 
 include("../Sam_QMC/functions/qmc_sweep.jl")
 include("../Sam_QMC/functions/qmc_init.jl")
