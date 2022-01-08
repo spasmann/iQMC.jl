@@ -1,6 +1,5 @@
 These are the files that I use to make the plots and tables for the paper.
-I think I've got it set up so that any problem with a qmc_data
-
+I think I've got it set up so that any problem with a qmc_data can use the codes.
 
 Tools directory: 
 The files that you care about are
