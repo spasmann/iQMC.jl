@@ -92,10 +92,14 @@ The linear and nonlinear solvers come from the Julia package
 \cite{ctk:notebooknl} and the book \cite{ctk:fajulia}
 that accompany the package. 
 
+For each example,
+we use two Krylov methods \cite{ctk:roots}, GMRES \cite{gmres} and
+Bi-CGSTAB \cite{bicgstab}.  
+
+\subsubsection{Garcia-Siewert}
 
 We solve the QMC linear problem with N=2048 and Nx= 100. 
-We use two krylov methods \cite{ctk:roots}, GMRES \cite{gmres} and
-Bi-CGSTAB \cite{bicgstab}.  Figures~\ref{fig:easy} and 
+Figures~\ref{fig:easy} and 
 \ref{fig:hard} show that
 the Krylov iterations take fewer than half of the number
 of transport sweeps that Picard iteration required.
@@ -250,3 +254,32 @@ $1/N$? Am I missing something? Am I tabulating the wrong thing?}
 \hline 
 \end{tabular} 
 \end{table}
+
+\subsubsection{Multigroup Problems}
+
+These are preliminary results with $N_x = 40$ and $N=2^{10}$. We may
+want to make these larger and/or make tables like 
+Table~\ref{tab:bigtab1} and Table~\ref{tab:bigtab1}. 
+
+\begin{figure}[h]
+\centerline{
+\includegraphics[width=3.5in]{FIGURES/12Group.pdf}
+}
+\caption{\label{fig:12group}}
+\end{figure}
+
+\begin{figure}[h]
+\centerline{
+\includegraphics[width=3.5in]{FIGURES/70Group.pdf}
+}
+\caption{\label{fig:70group}}
+\end{figure}
+
+\begin{figure}[h]
+\centerline{
+\includegraphics[width=3.5in]{FIGURES/618Group.pdf}
+}
+\caption{\label{fig:618group}}
+\end{figure}
+
+
