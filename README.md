@@ -26,3 +26,38 @@ Organization:
 
 I got the LaTeX style files from ANS and assume that you have __nseJournal.cls__ and __ans_js.bst__
   
+## Codes: 
+
+The files that I use to make the plots and tables for the paper are in the Examples directory
+I think I've got it set up so that any problem with a qmc_data can use the codes.
+
+__Examples/Tools directory:__
+
+The files that you care about are
+
+SamMaps.jl, Solver_Compare.jl, and Sam_Bench.jl
+
+SamMaps.jl takes Sam's qmc_data structure and makes the matrix-vector
+product that Krylov solvers need.
+
+Solver_Compare is used in all the examples to make the plots comparing
+the iterative methods. All Solver_Compare needs to do its job is the
+mxv_data file and a label for the plot.
+
+Data_Files.jl and fprintTeX.jl read/write data and make tables in TeX. You can
+ignore these files.
+
+__Examples/Garcia directory:__
+
+Error_Table.jl makes the table of relative errors in the paper. It is
+only for the Garcia-Siewert example. It uses gs_tabulate.jl to map the
+flux into the exit distributions.
+
+Make_Plots_Iterations.jl sets up the data structures and calls Solver_Compare.
+
+__Examples/MulitGroup directory:__ 
+
+mg_example.jl does the same job as
+Make_Plots_Iterations.jl does for the Garia-Siewert example. I use
+Solver_Compare.jl to run the solvers and plot the results. I also add
+a test at the end to make sure I'm getting correct results.
