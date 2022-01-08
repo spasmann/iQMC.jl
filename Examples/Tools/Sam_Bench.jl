@@ -1,3 +1,9 @@
+"""
+Sam_Bench(N=2^11, Nx=100, s=1.0)
+
+Benchmark gmres solver for the Garcia-Siewert problem.
+Sanity check as Sam improves the code.
+"""
 function Sam_Bench(N=2^11, Nx=100, s=1.0)
 qmc_data=SamGarciaInit(N, Nx, s);
 mxv_data=SamInitMV(qmc_data);
