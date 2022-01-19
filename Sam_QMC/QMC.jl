@@ -51,17 +51,26 @@ export getb
 export GarciaInit
 export MultiGroupInit
 
+export reeds_init
+export reeds_data
+export reeds_sol
+export qmc_reeds
+
 include("functions/qmc_init.jl")
 include("functions/qmc_source_iteration.jl")
 include("functions/qmc_sweep.jl")
 include("functions/move_part.jl")
 include("functions/misc_functions.jl")
+include("functions/Linear_QMC.jl")
+include("functions/init_files/reeds_init.jl")
+include("functions/reeds_data.jl")
+include("functions/reeds_solution.jl")
 
 include("tests/garcia.jl")
 include("tests/infinite_medium.jl")
 include("tests/multi_group.jl")
 include("tests/RNG_Comparison.jl")
+include("tests/reeds_problem.jl")
 
-include("functions/Linear_QMC.jl")
 
 end

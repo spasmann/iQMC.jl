@@ -36,7 +36,6 @@ function qmc_init(Geometry, generator, N, LB, RB, Nx, na2, s, sigs, sigt)
         exit_left_bins[:,2] .= 0
 
         G = size(sigt)[1] # number of groups
-        
         temp1 = zeros(Nx, G)
         for i in 1:G
             temp1[:,i] = ones(Nx)*sigt[i]
