@@ -45,7 +45,10 @@ export sn_init
 export garcia_test
 export multiGroup_init
 export mg_example
-
+export reeds_example
+export reeds_init
+export reeds_data
+export reeds_solution
 
 include("test/garcia_test.jl")
 include("Tools/Sam_Bench.jl")
