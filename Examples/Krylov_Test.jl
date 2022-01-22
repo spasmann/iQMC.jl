@@ -45,7 +45,10 @@ export sn_init
 export garcia_test
 export multiGroup_init
 export mg_example
-
+export reeds_example
+export reeds_init
+export reeds_data
+export reeds_solution
 
 include("test/garcia_test.jl")
 include("Tools/Sam_Bench.jl")
@@ -68,8 +71,13 @@ include("Garcia/GS_Data_Read.jl")
 
 include("MultiGroup/mg_example.jl")
 
+include("Reeds/reeds_example.jl")
+
 include("../Sam_QMC/functions/qmc_sweep.jl")
-include("../Sam_QMC/functions/qmc_init.jl")
+include("../Sam_QMC/functions/init_files/qmc_init.jl")
+include("../Sam_QMC/functions/init_files/reeds_init.jl")
+include("../Sam_QMC/functions/reeds_data.jl")
+include("../Sam_QMC/functions/reeds_solution.jl")
 #include("../Sam_QMC/functions/qmc_source_iteration.jl")
 include("../Sam_QMC/functions/move_part.jl")
 include("../Sam_QMC/functions/misc_functions.jl")

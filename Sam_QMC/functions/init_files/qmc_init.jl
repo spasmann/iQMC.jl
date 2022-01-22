@@ -36,7 +36,6 @@ function qmc_init(Geometry, generator, N, LB, RB, Nx, na2, s, sigs, sigt)
         exit_left_bins[:,2] .= 0
 
         G = size(sigt)[1] # number of groups
-        
         temp1 = zeros(Nx, G)
         for i in 1:G
             temp1[:,i] = ones(Nx)*sigt[i]
@@ -111,9 +110,9 @@ function multiGroup_init(Geometry, generator, N, LB, RB, Nx, numGroups)
         if (numGroups != 12) && (numGroups != 70) && (numGroups != 618)
             error("Number of groups must be 12, 70, or 618.")
         end
-        D = readdlm(joinpath(@__DIR__, "../HDPE_data/D_$(numGroups)G_HDPE.csv"), ',', Float64)
-        siga = readdlm(joinpath(@__DIR__, "../HDPE_data/Siga_$(numGroups)G_HDPE.csv"), ',', Float64)
-        sigs = readdlm(joinpath(@__DIR__, "../HDPE_data/Scat_$(numGroups)G_HDPE.csv"), ',', Float64)
+        D = readdlm(joinpath(@__DIR__, "../../HDPE_data/D_$(numGroups)G_HDPE.csv"), ',', Float64)
+        siga = readdlm(joinpath(@__DIR__, "../../HDPE_data/Siga_$(numGroups)G_HDPE.csv"), ',', Float64)
+        sigs = readdlm(joinpath(@__DIR__, "../../HDPE_data/Scat_$(numGroups)G_HDPE.csv"), ',', Float64)
         sigs = reverse(sigs, dims=2)
         sigt = 1 ./ (3*D)
 

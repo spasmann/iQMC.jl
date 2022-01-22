@@ -19,7 +19,11 @@ function move_part(midpoints,mu,x,Nx,high_edges,low_edges,weight,
         ds = dsList[counter]
         dV = cellVolume(Geo,z_prop,low_edges,high_edges)
         # update variables
-        score_TL           = weight.*(1 .- exp.(-(ds*sigt[z_prop,:])))./(sigt[z_prop,:].*dV) #implicit capture for track-length
+        if (sigt[z_prop] > 1e-16)
+            score_TL           = weight.*(1 .- exp.(-(ds*sigt[z_prop,:])))./(sigt[z_prop,:].*dV) #implicit capture for track-length
+        else
+            score_TL = weight.*ds./dV
+        end
         phi_avg[z_prop,:] += score_TL
         J_avg[z_prop,:]   += score_TL*mu
 #        phi_s[z_prop,:]   .+= (weight.*exp.(-low_edges[z_prop]./c)).*(1 .- exp.(-(ds*(sigt[z_prop,:] .+ mu./c))))./(sigt[z_prop,:] .+ mu./c)./dV
