@@ -31,7 +31,7 @@ export SamMxv
 export SamPicard
 export SamGarciaInit
 export SamInitMV
-export SamGmres
+#export SamGmres
 export SamAA0
 export SamAA
 export FixedTest
@@ -56,8 +56,8 @@ include("Tools/fprintTex.jl")
 include("Garcia/TeX_Error_Table.jl")
 include("Tools/Data_Files.jl")
 include("Tools/SamMaps.jl")
-include("Tools/SamTests.jl")
-include("Tools/SamGmres.jl")
+#include("Tools/SamTests.jl")
+#include("Tools/SamGmres.jl")
 include("Tools/SamSolvers.jl")
 include("Tools/Solver_Compare.jl")
 include("Garcia/SamGarciaInit.jl")
