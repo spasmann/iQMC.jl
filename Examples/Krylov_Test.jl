@@ -66,7 +66,12 @@ export reeds_example
 export reeds_init
 export reeds_data
 export reeds_solution
-
+export Reeds_Error_Table
+export Reeds_Error_Table_Row
+export Increase_N_Reeds
+export reeds_tabulate
+export reeds_texttab
+export reeds_LaTeX
 #
 #
 #
@@ -96,9 +101,11 @@ include("Garcia/GS_Data_Read.jl")
 #
 include("MultiGroup/mg_example.jl")
 #
-# Reeds example 
+# Reeds example
 #
 include("Reeds/reeds_example.jl")
+include("Reeds/Reeds_Error_Table.jl")
+include("Reeds/reeds_tabulate.jl")
 #
 # Sam's QMC tools
 #

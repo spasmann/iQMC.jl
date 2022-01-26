@@ -64,5 +64,3 @@ ylabel("Relative Residual")
 tstring="QMC Residual Histories: $plabel"
 title(tstring)
 end
-
-
