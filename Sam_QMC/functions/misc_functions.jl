@@ -286,7 +286,8 @@ Solve distance to edge in a slab.
 ...
 """
 function slab_edge(mu,x,edge)
-    return (edge - x)/mu
+    ds = (edge - x)/mu
+    return ds
 end
 
 """
@@ -320,6 +321,7 @@ function distance_to_edge(Geo,x,y,z,mu,phi,low_edges,high_edges,zone)
         else
             ds = slab_edge(mu,x,low_edges[zone])
         end
+
     elseif (Geo == 2) # cyliner
         ds1 = cylinder_edge(x,y,mu,phi,high_edges[zone])
         ds2 = cylinder_edge(x,y,mu,phi,low_edges[zone])
@@ -337,6 +339,25 @@ function distance_to_edge(Geo,x,y,z,mu,phi,low_edges,high_edges,zone)
             ds = ds2
         end
     end
+
+    if (ds<0)
+        println("***********")
+        println("zone = ", zone)
+        println("x = ", x)
+        println("y = ", y)
+        println("z = ", z)
+        if (mu > 0)
+            println("edge = ", high_edges[zone])
+        else
+            println("edge = ", low_edges[zone])
+        end
+        println("mu = ", mu)
+        println("ds = ", ds)
+        println("***********")
+    end
+    @assert ds>=0
+
+
     return (ds)
 end
 
@@ -396,8 +417,12 @@ Return current zone of partilce.
 ...
 """
 function getZone(x,y,z,low_edges,high_edges)
-    r = sqrt(x^2 + y^2 + z^2)
-    return argmax((r.>low_edges).*(r .<= high_edges))
+    if (y==0 && z==0)
+        return argmax((x.>low_edges).*(x .<= high_edges))
+    else
+        r = sqrt(x^2 + y^2 + z^2)
+        return argmax((r.>low_edges).*(r .<= high_edges))
+    end
 end
 
 """

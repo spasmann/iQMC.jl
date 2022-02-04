@@ -19,8 +19,9 @@ function qmc_reeds(N=2^12, Nx=160)
     phi_avg, phi_edge, dphi, J_avg, J_edge, psi_right, psi_left, history, itt = qmc_source_iteration(qmc_data)
 
     sol = qmc_data.true_flux
-    xspan = LinRange(0,8,Nx)
+    xspan = LinRange(qmc_data.LB,qmc_data.RB,Nx)
     figure()
-    plot(xspan, sol)
-    plot(xspan,phi_avg)
+    plot(xspan, sol, label="true")
+    plot(xspan,phi_avg, label = "QMC")
+    legend()
 end

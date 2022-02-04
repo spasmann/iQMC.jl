@@ -26,26 +26,47 @@ function reeds_sol(n=1000)
     3.119310353653182*10^(-3)*exp(0.5254295183311557*x) - 6.336401143340483*10^(-7)*exp(1.108937229227813*x) -
     3.528757679361232*10^(-8)*exp(1.615640334315550*x) - 4.405514335746888*10^(-18)*exp(4.554850586269065*x))
 
-    xspan = LinRange(0,8,n)
+    xspan = LinRange(-8.0,8.0,n)
     y = zeros(n)
     count = 1
+    """
     for x in xspan
-        if (x<2)
+        if (0 <= x <= 2)
             y[count] = y1(x)
-        elseif (2<= x <= 3)
+        elseif (2 < x <= 3)
             y[count] = y2(x)
-        elseif (3<= x <= 5)
+        elseif (3 < x <= 5)
             y[count] = y3(x)
-        elseif (5<= x <= 6)
+        elseif (5 < x <= 6)
             y[count] = y4(x)
-        else
+        elseif (6 < x)
             y[count] = y5(x)
         end
         count += 1
     end
-    #figure()
-    #plot(xspan,y)
+    """
+    for x in xspan
+        x = abs(x)
+        if (x < -6.0)
+            y[count] = y5(x)
+        elseif (-6.0 <= x < -5.0)
+            y[count] = y4(x)
+        elseif (-5.0 <= x < -3.0)
+            y[count] = y3(x)
+        elseif (-3.0 <= x < -2.0)
+            y[count] = y2(x)
+        elseif (-2.0 <= x < 2.0)
+            y[count] = y1(x)
+        elseif (2.0 <= x < 3.0)
+            y[count] = y2(x)
+        elseif (3.0<= x < 5.0)
+            y[count] = y3(x)
+        elseif (5.0<= x < 6.0)
+            y[count] = y4(x)
+        elseif (6.0<= x)
+            y[count] = y5(x)
+        end
+        count += 1
+    end
     return y
 end
-
-#reeds_sol(1000,0,8)

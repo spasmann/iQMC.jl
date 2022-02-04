@@ -124,17 +124,19 @@ function qmc_sweep(phi_avg, qmc_data)
     for i in 1:N
         #pick starting point and mu
         randX, randMu, randPhi = nextRN(rng, i, generator, Geo, Dim)
-        x =  (RB-LB)*randX    # number between 0 and Lx for starting
+        x =  (RB-LB)*randX + LB   # number between 0 and Lx for starting
         mu = 2*randMu-1       # mu in -1 to 1
         phi = randPhi*2*pi
         y = z = 0
         #compute initial weight
         zone = getZone(x,y,z,low_edges,high_edges)
         weight = q[zone,:]/N*cellVolume(Geo, zone, low_edges, high_edges)*Nx
+
         #how far does a particle travel when it crosses a zone
         move_part(  midpoints,mu,x,Nx,high_edges,low_edges,weight,
                     phi_avg, dphi, phi_edge, phi_s, J_avg, J_edge,sigt,
                     exit_right_bins,exit_left_bins,c,phi,z,y,Geo)
+        @assert(!any(isnan, weight))
     end
 
     exit_left_bins[:,2] ./= dmu

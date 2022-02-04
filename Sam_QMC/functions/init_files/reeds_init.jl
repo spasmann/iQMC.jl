@@ -6,7 +6,7 @@ function reeds_init(generator, N, Nx)
         hasLeft = false
         hasRight = false
 
-        LB = 0.0
+        LB = -8.0
         RB = 8.0
         dx = (RB-LB)/Nx
         #define tally mesh

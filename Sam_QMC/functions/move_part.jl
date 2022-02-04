@@ -13,17 +13,35 @@ function move_part(midpoints,mu,x,Nx,high_edges,low_edges,weight,
     # collect list of zones crossed and path lengths in each
     zoneList, dsList = getPath(Geo,x,y,z,mu,phi,low_edges,high_edges,Nx)
     counter = 1
-
     # sweep through all zones
     for z_prop in zoneList
         ds = dsList[counter]
         dV = cellVolume(Geo,z_prop,low_edges,high_edges)
         # update variables
         if (sigt[z_prop] > 1e-16)
-            score_TL           = weight.*(1 .- exp.(-(ds*sigt[z_prop,:])))./(sigt[z_prop,:].*dV) #implicit capture for track-length
+            score_TL = weight.*(1 .- exp.(-(ds*sigt[z_prop,:])))./(sigt[z_prop,:].*dV) #implicit capture for track-length
         else
             score_TL = weight.*ds./dV
         end
+        """
+        if (any(isnan, score_TL))
+            println("**************************************")
+            println("sigt>0: ", weight.*(1 .- exp.(-(ds*sigt[z_prop,:])))./(sigt[z_prop,:].*dV))
+            println("sigt=0: ", weight.*ds./dV)
+            println("score_TL = ", score_TL)
+            println("weight = ", weight)
+            println("(1 .- exp.(-(ds*sigt[z_prop,:]))) =", (1 .- exp.(-(ds*sigt[z_prop,:]))))
+            println("(sigt[z_prop,:].*dV) = ", (sigt[z_prop,:].*dV))
+            println("wight.*(1 .- exp.(-(ds*sigt[z_prop,:])))./(sigt[z_prop,:].*dV) = ", weight.*(1 .- exp.(-(ds*sigt[z_prop,:])))./(sigt[z_prop,:].*dV))
+            println("sigt = ", sigt[z_prop,:])
+            println("ds = ", ds)
+            println("**************************************")
+        end
+        """
+        #
+
+        @assert(!any(isnan, score_TL))
+
         phi_avg[z_prop,:] += score_TL
         J_avg[z_prop,:]   += score_TL*mu
 #        phi_s[z_prop,:]   .+= (weight.*exp.(-low_edges[z_prop]./c)).*(1 .- exp.(-(ds*(sigt[z_prop,:] .+ mu./c))))./(sigt[z_prop,:] .+ mu./c)./dV

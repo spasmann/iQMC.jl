@@ -5,20 +5,19 @@ Make the tables to compare with Garcia/Siewert
 
 Uses the converged flux from the solve.
 """
-function reeds_tabulate(nx, flux; maketab=true)
-    PS = flux
-    GS = reeds_sol(nx)
+function mg_tabulate(G, Nx, true_flux, flux; maketab=true)
     if maketab
-        println("Results for Reeds Problem, Nx = $nx")
-        reeds_texttab(GS,PS)
-        reeds_LaTeX(GS,PS)
+        println("Results for Multi-Group Problem, Nx = $nx")
+        mg_texttab(true_flux,flux)
+        mg_LaTeX(true_flux,flux)
     end
-    reldiff=(GS-PS)./GS
+    true_flux = reshape(true_flux, G*Nx,)
+    reldiff=(true_flux-flux)./true_flux
     ExitErr=norm(reldiff,Inf)
     return (ExitErr=ExitErr)
 end
 
-function reeds_texttab(GS,PS)
+function mg_texttab(GS,PS)
 labelgs="               Reeds Problem                         QMC"
 header = " mu         I(0,-mu)        I(tau,mu)"
 header2 = "      I(0,-mu)        I(tau,mu)"
@@ -32,7 +31,7 @@ for it=1:na
     end
 end
 
-function reeds_LaTeX(GS,PS,angleout)
+function mg_LaTeX(GS,PS,angleout)
 headers = [L"$\mu$",L"$\psi(0,-\mu)$",L"$\psi(\tau,\mu)$",
            L"$\psi(0,-\mu)$",L"$\psi(\tau,\mu)$"]
 TData=[angleout[na+1:2*na] GS[:,1] GS[:,2] PS[:,1] PS[:,2]]

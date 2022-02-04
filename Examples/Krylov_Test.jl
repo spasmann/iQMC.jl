@@ -14,6 +14,7 @@ using Random
 using Sobol
 using GoldenSequences
 using BenchmarkTools
+using DelimitedFiles
 using PyPlot
 pygui(true)
 import Distributions: Uniform
@@ -59,6 +60,12 @@ export garcia_test
 #
 export multiGroup_init
 export mg_example
+export MG_Error_Table
+export MG_Error_Table_Row
+export Increase_N_MG
+export mg_tabulate
+export mg_texttab
+export mg_Latex
 #
 # Reeds Problem
 #
@@ -100,6 +107,8 @@ include("Garcia/GS_Data_Read.jl")
 # Multi-group files
 #
 include("MultiGroup/mg_example.jl")
+include("MultiGroup/MG_Error_Table.jl")
+include("MultiGroup/mg_tabulate.jl")
 #
 # Reeds example
 #
