@@ -7,11 +7,11 @@ Makes the table of relative errors in the exit distributions.
 function Reeds_Error_Table(tol=1.e-5;
          maketab=true, savedata=false, fname=nothing, rptprog=true, plot=false)
 ltol=Int(log10(tol))
-Nvals= [2^10]#[2^10, 2^11, 2^12, 2^13, 2^14]
-NLim = 1
+Nvals= [2^10, 2^11, 2^12, 2^13, 2^14]
+NLim = 5
 NxBase=80;
-NxVals=NxBase*[1]#, 2, 4, 8, 16, 32, 64]
-NxLim = 1
+NxVals=NxBase*[1, 2, 4, 8, 16]
+NxLim = 5
 LongFname="ErrTab($NxLim-$NLim, $ltol)"
 (fname == nothing) && (fname=LongFname)
 Tout=zeros(NxLim,NLim)

@@ -29,22 +29,6 @@ function reeds_sol(n=1000)
     xspan = LinRange(-8.0,8.0,n)
     y = zeros(n)
     count = 1
-    """
-    for x in xspan
-        if (0 <= x <= 2)
-            y[count] = y1(x)
-        elseif (2 < x <= 3)
-            y[count] = y2(x)
-        elseif (3 < x <= 5)
-            y[count] = y3(x)
-        elseif (5 < x <= 6)
-            y[count] = y4(x)
-        elseif (6 < x)
-            y[count] = y5(x)
-        end
-        count += 1
-    end
-    """
     for x in xspan
         x = abs(x)
         if (x < -6.0)
