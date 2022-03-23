@@ -62,29 +62,21 @@ For each experiment, two Krylov methods \cite{ctk:roots}, GMRES \cite{gmres} and
 
 \subsection{Monte Carlo Sweep}
 
-Monte Carlo methods use the central limit theorem and the law of large numbers to solve integral equations by randomly sampling the probability space and approximating the theoretical expected value \cite{Lux1991, Murray1977}. Monte Carlo for neutron transport seeks to simulate the behavior of many particles from \textit{birth} to \textit{death} and gain an approximate description of the system. Physics equations and cross section data are used to model collisions while quantities of interest, like scalar flux ($\phi$), are tallied in the appropriate spatial region. Standard Monte Carlo techniques have been shown to converge at a rate of $O(N^{-0.5})$, where $N$ is the number of particles, regardless of the dimensionality of the problem \cite{Brown2005, Brown2006, Brown2016}. 
+Monte Carlo methods for neutron transport seek to simulate the behavior of a statistically significant number of particles from \textit{birth} to \textit{death} to gain an approximate behavior of the system. For our 1-dimensional simulations, each particle begins with an initial position ($x_i$), direction ($\mu_i$), and statistical weight ($w_i$). In an analog simulation, the particle would then be tracked from collision to collision, tallying quantities of interest in a defined spatial mesh. Each time the particle undergoes a collision, a new direction ($\mu$) would be sampled and the next distance to collision would be calculated. This process would repeat until the particle is either absorbed or exits the volume. However, the invoked iterative methods allow the simulation to be modeled as a purely absorbing system. MC simulation in a purely absorbing system can be enhanced by employing the continuous weight absorption technique, which continuously reduces the statistical weight of each particle per length traveled ($s$):
+\begin{equation}
+    \label{equation:7}
+    w_{1} = w_{0}e^{-\Sigma_{a}s}.
+\end{equation}
+Consequently, after emission the particle is traced straight out of the volume reducing the statistical weight according to the distance traveled across each spatial cell.
 
-In a MC simulation with scattering, each particle path represents a Markovian process or \textit{random walk} and the resulting algorithm is one that is massively parallel \cite{Carter1975, Kroese2011, willert2012hybrid}. Due to the noise inherent from random sampling, high-performance Monte Carlo codes often rely on simulating large numbers of particles across many nodes \cite{Pereira2013}. Nonetheless, the computational costs remain high and many variance reduction techniques have been developed to improve convergence properties \cite{McClarren2018}.
+The track-length tally estimator is used to calculate the spatially-averaged scalar flux in the defined mesh. Because the weight is continuously reduced with each step, the tally scoring becomes:
+\begin{equation}
+    \label{equation:8}
+    \frac{1}{V}\int_{0}^{s}w_{o}e^{\Sigma_{a}s\prime}ds = \frac{1}{V}\left(\frac{1-w_{o}e^{-\Sigma_{a}s}}{\Sigma_{a}}\right).
+\end{equation}
+%\subsubsection{Multigroup Equations}
 
-
-
-\subsubsection{Quasi-Monte Carlo}
-
-One such variance reduction method is the use of Quasi-Monte Carlo (QMC). QMC  uses quasi-random low-discrepancy sequences in place of pseudo-random number generators in MC simulations. Low-discrepancy sequences use deterministic algorithms to sample the phase space in \textit{self-avoiding}  manner thereby approaching a more uniform distribution and approximating the expectation more efficiently. This results in a theoretical convergence rate of $O(N^{-1})$ compared to the $O(N^{-0.5})$ from pseudo-randomly placed points \cite{Palluotto2019}.  Because the low-discrepancy sequences sample the phases-space in a deterministic manner they introduce a dependence, albeit a weak one, on the dimensionality of the problem \cite{Hickernell2002}. Commonly used low-discrepancy sequences include the Halton Sequence and Sobol Sequence \cite{Niederreiter1992}. For low-dimensional problems, the Halton sequence has been shown to provide the best results. However, for higher-dimensional problems the Sobol Sequence is most commonly used.
-
-QMC is commonly used in Finance to evaluate high-dimensional integrals \cite{Dagpunar2007} and there has also been recent work in using QMC in radiative heat transfer applications \cite{MOROKOFF1993, Palluotto2019}. However, QMC has largely been ignored by the particle transport community \cite{Spanier1995}. This is because the deterministic nature of the low discrepancy sequence breaks the Markovian assumption needed for the particle \textit{random walk}. Therefore QMC must be implemented in specific applications which are not Markovian processes, such as the initial starting position of each particle, or steps must be take to ensure the Markovian assumption is held. Presently, there have been two separate strategies for implementing QMC in particle transport while maintaining the Markovian assumption. The first is known generally as randomized-QMC or (RQMC) which includes a host of strategies that attempt to reorder the sequence so each point is individually uniformly distributed within the space but the collective still retain their low-discrepency. \cite{Fox1999, Spanier1995, Farmer2020, MOROKOFF1993, Konzen2019}. The second, makes use of the previously discussed  deterministic and iterative methods in which the problem can be modeled in the Monte Carlo simulation as a purely absorbing problem and the scattering term is iterated upon using one of the previously discussed methods removing the need for a \textit{random walk} process \cite{Pasmann2021}.
-
-\begin{figure}[h]
-\centerline{
-\includegraphics[width=3.5in]{FIGURES/sobol.png}
-}
-\caption{\label{fig:sobol} 256 points generated in a unit square with pseudo random points (left) and the Sobol sequence (right).}
-\end{figure}
-
-
-\subsubsection{Multigroup Equations}
-
-In general geometry, the multigroup equations for $G$ groups are:
+Neutron cross sections vary greatly with energy and contain large resonance regions, making them computationally expensive to model with high fidelity. The multigroup method is a common approach used to model energy-dependent cross sections in Monte Carlo. The multigroup method splits the energy range into $G$ finite regions each with a representative cross section. In general geometry, the multigroup equations for $G$ groups are:
 \begin{equation}\label{eq:MG}
 \mu  \frac{\partial \psi_g}{\partial x} (x,\mu) + \Sigma_{t,g}(x) \psi_g(x,\mu) =
 \frac{1}{2} \sum_{g'=1}^G \Sigma_{s,g'\rightarrow g}(x) \int_{-1}^1 \psi_{g'}(x, \mu') \dmup + \frac{q_g(x)}{2} \quad g=1,\dots,G.
@@ -116,5 +108,19 @@ and
  \Sigma_{s,2\rightarrow 1}(x) & \Sigma_{s,2\rightarrow 1}(x)  & \dots & \Sigma_{s,G\rightarrow 2}(x) \\
  \vdots & \vdots & & \vdots\\
  \Sigma_{s,G\rightarrow 1}(x) & \Sigma_{s,G\rightarrow 1}(x)  & \dots & \Sigma_{s,G\rightarrow G}(x) \\
- \end{pmatrix},.
+ \end{pmatrix}.
 \end{equation}
+
+\subsubsection{Quasi-Monte Carlo}
+
+Quais-Monte Carlo uses quasi-random low-discrepancy sequences in place of pseudo-random number generators in MC simulations. Low-discrepancy sequences use deterministic algorithms to sample the phase space in \textit{self-avoiding}  manner thereby approaching a more uniform distribution and approximating the expectation more efficiently. This results in a theoretical convergence rate of $O(N^{-1})$ compared to the $O(N^{-0.5})$ from pseudo-randomly placed points \cite{Palluotto2019}.  Because the low-discrepancy sequences sample the phases-space in a deterministic manner they introduce a dependence, albeit a weak one, on the dimensionality of the problem \cite{Hickernell2002}. Commonly used low-discrepancy sequences include the Halton Sequence and Sobol Sequence \cite{Niederreiter1992}. For low-dimensional problems, the Halton sequence has been shown to provide the best results. However, for higher-dimensional problems the Sobol Sequence is most commonly used.
+
+QMC is commonly used in Finance to evaluate high-dimensional integrals \cite{Dagpunar2007} and there has also been recent work in using QMC in radiative heat transfer applications \cite{MOROKOFF1993, Palluotto2019}. However, QMC has largely been ignored by the particle transport community \cite{Spanier1995}. This is because the deterministic nature of the low discrepancy sequence breaks the Markovian assumption needed for the particle \textit{random walk}. Therefore QMC must be implemented in specific applications which are not Markovian processes, such as the initial starting position of each particle, or steps must be take to ensure the Markovian assumption is held. Presently, there have been two separate strategies for implementing QMC in particle transport while maintaining the Markovian assumption. The first is known generally as randomized-QMC or (RQMC) which includes a host of strategies that attempt to reorder the sequence so each point is individually uniformly distributed within the space but the collective still retain their low-discrepency. \cite{Fox1999, Spanier1995, Farmer2020, MOROKOFF1993, Konzen2019}. The second, makes use of the previously discussed  deterministic and iterative methods in which the problem can be modeled in the Monte Carlo simulation as a purely absorbing problem and the scattering term is iterated upon using one of the previously discussed methods removing the need for a \textit{random walk} process \cite{Pasmann2021}.
+
+\begin{figure}[h]
+\centerline{
+\includegraphics[width=3.5in]{FIGURES/sobol.png}
+}
+\caption{\label{fig:sobol} 256 points generated in a unit square with pseudo random points (left) and the Sobol sequence (right).}
+\end{figure}
+

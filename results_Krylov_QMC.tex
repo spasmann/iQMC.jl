@@ -7,7 +7,7 @@
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Garcia-Siewert}
 
-The first computations use the problem from Garcia et al. \cite{cesinh}, outlined in Table ~\ref{tab:garcia}, and consider two cases for the scattering cross section ($\Sigma_s = e^{-x/s}$), $s=1$ and $s=\infty$. First, we solve the QMC linear problem with $N=2048$ and $N_x=100$.  Figure ~\ref{fig:easy} shows that for an exponentially decaying scattering cross section ($s=1$) the Krylov iterations take fewer than a third of the number of transport sweeps than that of the Picard iteration for a relative residual of $10^{-9}$. While Figure ~\ref{fig:hard} ($s=\infty$) shows the Krylov iterations took less than 25 iterations to reach a relative error of $10^{-6}$ while the Picard iteration took nearly 200. 
+The first computations use the problem from Garcia et al. \cite{cesinh}, outlined in Table ~\ref{tab:garcia}, and consider two cases for the scattering cross section ($\Sigma_s = e^{-x/s}$), $s=1$ and $s=\infty$. First, we solve the QMC linear problem with $N=2048$ and $N_x=100$.  Figure ~\ref{fig:easy} shows that for an exponentially decaying scattering cross section ($s=1$) the Krylov iterations take fewer than a third of the number of transport sweeps than that of the Picard iteration for a relative residual of $10^{-9}$. While Figure ~\ref{fig:hard} ($s=\infty$) shows the Krylov iterations took less than 25 iterations to reach a relative error of $10^{-6}$ while the Picard iteration required nearly 200 iterations. 
 
 \begin{table}[h]
 \centering
@@ -46,7 +46,6 @@ The first computations use the problem from Garcia et al. \cite{cesinh}, outline
 \caption{\label{fig:hard} Scalar flux relative residuals for $s=\infty$ given parameters from Table ~\ref{tab:garcia} and $N=2048$.}
 \end{figure}
 
-%\clearpage
 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
