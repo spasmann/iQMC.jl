@@ -24,17 +24,17 @@ maxit=200
 # GMRES solve
 #
 gmres_out=kl_gmres(phi0,b,SamMxv,V,tol; pdata=mxv_data)
-ghist=gmres_out.reshist./gmres_out.reshist[1]
+ghist=gmres_out.reshist
 #
 # BiCGSTAB solve
 #
 bicgstab_out=kl_bicgstab(phi0,b,SamMxv,V,tol; pdata=mxv_data, lmaxit=50)
-bhist=bicgstab_out.reshist./bicgstab_out.reshist[1]
+bhist=bicgstab_out.reshist
 #
 # Picard solve
 #
 picard_out=SamPicard(phi0,SamFix,tol,maxit,qmc_data)
-phist=picard_out.reshist./picard_out.reshist[1]
+phist=picard_out.reshist
 #
 # Are the solutions the same?
 #
@@ -44,6 +44,7 @@ bdiff=norm(picard_out.sol-bicgstab_out.sol)
 # Make the plot.
 #
 Compare_Plot(ghist,phist,bhist,plabel)
+Spectral_Radius_Plot(ghist,phist,bhist,plabel)
 println("gmres diff = $gdiff, BiCGSTAB diff = $bdiff")
 return gmres_out.sol
 end
@@ -54,6 +55,9 @@ Compare_Plot(ghist,phist,bhist,plabel)
 Use PyPlot to make the plots for the paper.
 """
 function Compare_Plot(ghist,phist,bhist,plabel)
+ghist=ghist/ghist[1]
+bhist=bhist/bhist[1]
+phist=phist/phist[1]
 pl=1:length(phist)
 gl=1:length(ghist)
 bl=1:2:2*length(bhist)-1
@@ -63,4 +67,8 @@ xlabel("Transport Sweeps")
 ylabel("Relative Residual")
 tstring="QMC Residual Histories: $plabel"
 title(tstring)
+end
+
+function Spectral_Radius_Plot(ghist,phist,bhist,plabel)
+
 end

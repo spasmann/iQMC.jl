@@ -24,4 +24,7 @@ function qmc_reeds(N=2^12, Nx=160)
     plot(xspan, sol, label="true")
     plot(xspan,phi_avg, label = "QMC")
     legend()
+
+    fname = "Reeds-phi_avg-$generator-$N-$Nx"
+    save_array(fname, phi_avg)
 end

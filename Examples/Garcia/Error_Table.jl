@@ -4,15 +4,15 @@ Error_Table(s=1.0, tol=1.e-5, NLim=5, NxLim=7;
 
 Makes the table of relative errors in the exit distributions.
 """
-function Error_Table(s=1.0, tol=1.e-5, NLim=6, NxLim=6;
-         savedata=false, maketab=false, fname=nothing, rptprog=true)
+function Error_Table(s=1.0, tol=1.e-5, NLim=1, NxLim=1;
+         savedata=true, maketab=false, fname=nothing, rptprog=true)
 s==1.0 ? sp=1 : sp=Inf
 ltol=Int(log10(tol))
 LongFname="ErrTab$sp($NxLim-$NLim, $ltol)"
 (fname == nothing) && (fname=LongFname)
 NxBase=50;
-Nvals=[2^10, 2^11, 2^12, 2^13, 2^14, 2^15]
-NxVals=NxBase*[1, 2, 4, 8, 16, 32]
+Nvals=[2^10]#, 2^11, 2^12, 2^13, 2^14, 2^15]
+NxVals=NxBase*[1]#, 2, 4, 8, 16, 32]
 Tout=zeros(NxLim,NLim)
 for indx=1:NxLim
 Zout=Error_Table_Row(NxVals[indx], s, Nvals[1:NLim],tol; rptprog=rptprog)

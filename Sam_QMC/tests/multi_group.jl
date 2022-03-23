@@ -2,12 +2,12 @@
 Sam Pasmann
 """
 
-function qmc_multiGroup(G=12, N=2^11)
+function qmc_multiGroup(G=12, N=2^10)
     ###############################################################################
     #### Parameters
     ###############################################################################
 
-    Nx = 40     # number of tally cells
+    Nx = 20     # number of tally cells
     LB = 0      # left bound
     RB = 5    # right bound
     geometry = "Slab"
@@ -26,7 +26,7 @@ function qmc_multiGroup(G=12, N=2^11)
     figure()
     title("Scalar Flux")
     plot(midpoints, sum(phi_avg, dims=2), label=generator)
-    plot(edges, sum(phi_edge, dims=2), label="edges")
+    #plot(edges, sum(phi_edge, dims=2), label="edges")
     ylabel("cell averaged flux")
     xlabel("midpoints")
     legend()

@@ -1,170 +1,86 @@
 % !TEX root = Krylov_QMC.tex
 \section{Computational Results}
 \label{sec:results}
-In this section we consider an example from
-\cite{cesinh}. The formulation of the transport
-problem is taken from \cite{ctk:jeff1}. The equation for the angular
-flux \(\psi\) is
-
-\begeq
-\label{eq:transportgs}
-\mu \frac{\partial \psi}{\partial x} (x,\mu) + \Sigma_t(x) \psi(x,\mu) =
-\frac{1}{2} \left[ \Sigma_s(x) \int_{-1}^1 \psi(x, \mu') \dmup + q(x) \right]
- \mbox{ for } 0 \le x \le \tau
-\endeq
-
-The boundary conditions are
-
-\[
-\psi(0, \mu) = \psi_l(\mu), \mu > 0; \psi(\tau, \mu) = \psi_r(\mu),
-\mu < 0.
-\]
-
-\subsection{Multigroup Equations}
-In general geometry the multigroup equations are 
-\begin{equation}\label{eq:MG}
-\mu  \frac{\partial \psi_g}{\partial x} (x,\mu) + \Sigma_{t,g}(x) \psi_g(x,\mu) =
-\frac{1}{2} \sum_{g'=1}^G \Sigma_{s,g'\rightarrow g}(x) \int_{-1}^1 \psi_{g'}(x, \mu') \dmup + \frac{q_g(x)}{2} \quad g=1,\dots,G.
-\end{equation}The boundary conditions are
-\[
-\psi_g(0, \mu) = \psi_{l,g}(\mu), \mu > 0; \psi_g(\tau, \mu) = \psi_{r,g}(\mu),
-\mu < 0.
-\]
-In matrix form, these equations are
-\begin{equation}\label{eq:MGmat}
-\mu  \frac{\partial \vec{\psi}}{\partial x} (x,\mu) + \underline{\Sigma}_{t}(x) \vec{\psi}(x,\mu) =
-\frac{1}{2}  \underline{\Sigma}_{s}(x) \int_{-1}^1 \vec{\psi}(x, \mu') \dmup + \frac{\vec{q}(x)}{2},
-\end{equation}
-where
-\begin{equation}\label{eq:vecs}
-\vec{\psi} = (\psi_1, \psi_2, \dots, \psi_G)^\mathrm{T}, \qquad \vec{q} = (q_1, q_2, \dots, q_G)^\mathrm{T}, 
-\end{equation}
-\begin{equation}\label{eq:MatricesT}
- \underline{\Sigma}_{t}(x)  = \begin{pmatrix} \Sigma_{t,1}(x) & 0 & \dots\\
- 0 & \Sigma_{t,2}(x) & 0 \dots \\
- \vdots & & \ddots\\ 
- 0 & \dots & 0 & \Sigma_{t,G}(x) 
- \end{pmatrix}, 
-\end{equation}
-and
-\begin{equation}\label{eq:MatricesS}
- \underline{\Sigma}_{s}(x)  = \begin{pmatrix} \Sigma_{s,1\rightarrow 1}(x) & \Sigma_{s,2\rightarrow 1}(x)  & \dots & \Sigma_{s,G\rightarrow 1}(x) \\
- \Sigma_{s,2\rightarrow 1}(x) & \Sigma_{s,2\rightarrow 1}(x)  & \dots & \Sigma_{s,G\rightarrow 2}(x) \\
- \vdots & \vdots & & \vdots\\
- \Sigma_{s,G\rightarrow 1}(x) & \Sigma_{s,G\rightarrow 1}(x)  & \dots & \Sigma_{s,G\rightarrow G}(x) \\
- \end{pmatrix},.
-\end{equation}
-
-\subsection{Source Iteration and Linear Solvers}
-\label{subsec:source}
-
-Source iteration is Picard iteration for the fixed point problem
-\[
-\phi = \cals(\phi, q, \psi_l, \psi_r)
-\]
-To use other solvers we must convert to a linear system via
-\[
-\calk(\phi) = \cals(\phi, 0, 0, 0) \mbox{ and }
-f = \cals(0, q, \psi_l, \psi_r)
-\]
-to get
-\[
-A \phi \equiv (I - \calk) \phi = f,
-\]
-which we can send to a linear solver.
-
-In the computations we use the problem from \cite{cesinh}
-\[
-\tau=5, \Sigma_s(x) =\omega_0 e^{-x/s},  \Sigma_t(x) = 1, q(x) = 0, \psi_l(\mu) = 1, \psi_r(\mu) = 0,
-\]
-and consider two cases $s=1$ and $s=\infty$ 
-
-\clearpage
-
-\subsection{QMC and Krylov Linear Solvers}
-\label{subsec:krylov}
 
 
-The linear and nonlinear solvers come from the Julia package
-\href{https://github.com/ctkelley/SIAMFANLEquations.jl}{SIAMFANLEQ.jl}
-\cite{ctk:siamfanl}. The documentation for these codes is in the
-\href{https://github.com/ctkelley/NotebookSIAMFANL}{Juila notebooks}
-\cite{ctk:notebooknl} and the book \cite{ctk:fajulia}
-that accompany the package. 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Garcia-Siewert}
 
-For each example,
-we use two Krylov methods \cite{ctk:roots}, GMRES \cite{gmres} and
-Bi-CGSTAB \cite{bicgstab}.  
+The first computations use the problem from Garcia et al. \cite{cesinh}, outlined in Table ~\ref{tab:garcia}, and consider two cases for the scattering cross section ($\Sigma_s = e^{-x/s}$), $s=1$ and $s=\infty$. First, we solve the QMC linear problem with $N=2048$ and $N_x=100$.  Figure ~\ref{fig:easy} shows that for an exponentially decaying scattering cross section ($s=1$) the Krylov iterations take fewer than a third of the number of transport sweeps than that of the Picard iteration for a relative residual of $10^{-9}$. While Figure ~\ref{fig:hard} ($s=\infty$) shows the Krylov iterations took less than 25 iterations to reach a relative error of $10^{-6}$ while the Picard iteration took nearly 200. 
 
-\subsubsection{Garcia-Siewert}
+\begin{table}[h]
+\centering
+\caption{Parameters for fixed boundary source, slab geometry, simulation from Garcia et al. \cite{cesinh}}
+\label{tab:garcia}
+\centerline{
+\begin{tabular}{c | c}
+\hline
+ Parameter & Value \\ 
+\hline
+ $\Sigma_t$ & 1 \\  
+ $\Sigma_s(x)$ & $e^{-x/s}$ \\
+ $\tau$ & $5$ \\
+ $\psi_l(\mu)$ & 1 \\
+ $ \psi_r(\mu)$ & 0 \\
+ $N_x$ & 50 \\
+ $q(x)$ & 0 \\
+\hline
+\end{tabular}
+}
+\end{table}
 
-We solve the QMC linear problem with N=2048 and Nx= 100. 
-Figures~\ref{fig:easy} and 
-\ref{fig:hard} show that
-the Krylov iterations take fewer than half of the number
-of transport sweeps that Picard iteration required.
-
-\vspace*{.25in}
+%\vspace*{.25in}
 
 \begin{figure}[h]
 \centerline{
 \includegraphics[width=3.5in]{FIGURES/seqone.pdf}
 }
-\caption{\label{fig:easy} $s=1$}
+\caption{\label{fig:easy} Scalar flux relative residuals for $s=1$ given parameters from Table ~\ref{tab:garcia} and $N=2048$.}
 \end{figure}
 
 \begin{figure}[h]
 \centerline{
 \includegraphics[width=3.5in]{FIGURES/seqinf.pdf}
 }
-\caption{\label{fig:hard} $s=\infty$}
+\caption{\label{fig:hard} Scalar flux relative residuals for $s=\infty$ given parameters from Table ~\ref{tab:garcia} and $N=2048$.}
 \end{figure}
 
-\clearpage
+%\clearpage
 
-\subsection{Validation and calibration study}
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\subsubsection{Validation and calibration study}
 \label{validation-and-calibration-study}
 
-We conclude this section with a validation study. We compare the
-QMC results with the results from \cite{cesinh}. The results
-in \cite{cesinh} are exit distributions and are accurate to 
-six figures. We have duplicated those results with an $Sn$ computation
-on a fine angular and spatial mesh.
+We conclude this problem with a validation study. We compare the QMC results with the results from \cite{cesinh}. The results in \cite{cesinh} are exit distributions and are accurate to six figures. We have duplicated those results with an $S_N$ computation on a fine angular and spatial mesh.
 
-{\bf Sam, Ryan, should we use more or different values of $N$ and $Nx$?}
-
-For $N = 2048$ and $Nx=100$ we obtain the cell-average fluxes from
-the QMC approximation. We then use a single Sn transport sweep to recover
-the exit distributions from the QMC cell-average fluxes. We report
-the results and the corresponding results from \cite{cesinh} in 
-Tables~\ref{tab:cesone} and \ref{tab:cesinf}.
-
-The exit distributions, as is clear from Table~\ref{tab:cesone}
-can vary by five orders of magnitude. Even so, the results from QMC
-agree with the benchmarks to roughly two figures.
+For $N=2048$ and $Nx=100$ we obtain the cell-average fluxes from the QMC approximation. We then use a single $S_N$ transport sweep to recover the exit distributions from the QMC cell-average fluxes. We report the results and the corresponding results from \cite{cesinh} in Tables~\ref{tab:cesone} and \ref{tab:cesinf}. The exit distributions, as is clear from Table~\ref{tab:cesone} can vary by five orders of magnitude. Even so, the results from QMC agree with the benchmarks to roughly two figures.
 
 \begin{table}[h]
 \centering
-\caption{Exit Distributions: $s = 1$}
+\caption{Angular flux exit Distributions from Garcia/Siewart and the $S_N$ QMC sweep (with $N=2048$ and $Nx=100$), along with  difference between results for $s = 1$.}
 \label{tab:cesone}
 \centerline{
-\begin{tabular}{lllll}
+\begin{tabular}{c | c c | c c | c c}
  & \multicolumn{2}{c}{Garcia/Siewert}
- & \multicolumn{2}{c}{QMC}\\
+ & \multicolumn{2}{c}{QMC}
+ & \multicolumn{2}{c}{Difference} \\
 \hline
-$\mu$ &$\psi(0, -\mu)$ &$\psi(\tau, \mu)$ &$\psi(0, -\mu)$ &$\psi(\tau, \mu)$ \\
+$\mu$ & $\psi(0, -\mu)$ & $\psi(\tau, \mu)$ & $\psi(0, -\mu)$ & $\psi(\tau, \mu)$ & $\psi(0, -\mu)$ & $\psi(\tau, \mu)$ \\
 \hline
- 0.05 &    5.89664e-01 &    6.07488e-06 &    6.07035e-01 &    5.91908e-06   \\ 
- 0.10 &    5.31120e-01 &    6.92516e-06 &    5.47466e-01 &    6.74075e-06   \\ 
- 0.20 &    4.43280e-01 &    9.64232e-06 &    4.57064e-01 &    9.35453e-06   \\ 
- 0.30 &    3.80306e-01 &    1.62339e-05 &    3.92223e-01 &    1.56108e-05   \\ 
- 0.40 &    3.32964e-01 &    4.38580e-05 &    3.43481e-01 &    4.13721e-05   \\ 
- 0.50 &    2.96090e-01 &    1.69372e-04 &    3.05510e-01 &    1.58622e-04   \\ 
- 0.60 &    2.66563e-01 &    5.73465e-04 &    2.75098e-01 &    5.39514e-04   \\ 
- 0.70 &    2.42390e-01 &    1.51282e-03 &    2.50192e-01 &    1.43257e-03   \\ 
- 0.80 &    2.22235e-01 &    3.24369e-03 &    2.29422e-01 &    3.08975e-03   \\ 
- 0.90 &    2.05174e-01 &    5.96036e-03 &    2.11837e-01 &    5.70555e-03   \\ 
- 1.00 &    1.90546e-01 &    9.77123e-03 &    1.96756e-01 &    9.39189e-03   \\ 
+ 0.05 &    5.89664e-01 &    6.07488e-06 &    6.07035e-01 &    5.91908e-06   & test & test \\ 
+ 0.10 &    5.31120e-01 &    6.92516e-06 &    5.47466e-01 &    6.74075e-06   & test & test \\  
+ 0.20 &    4.43280e-01 &    9.64232e-06 &    4.57064e-01 &    9.35453e-06   & test & test \\ 
+ 0.30 &    3.80306e-01 &    1.62339e-05 &    3.92223e-01 &    1.56108e-05   & test & test \\ 
+ 0.40 &    3.32964e-01 &    4.38580e-05 &    3.43481e-01 &    4.13721e-05   & test & test \\ 
+ 0.50 &    2.96090e-01 &    1.69372e-04 &    3.05510e-01 &    1.58622e-04   & test & test \\ 
+ 0.60 &    2.66563e-01 &    5.73465e-04 &    2.75098e-01 &    5.39514e-04   & test & test \\ 
+ 0.70 &    2.42390e-01 &    1.51282e-03 &    2.50192e-01 &    1.43257e-03   & test & test \\ 
+ 0.80 &    2.22235e-01 &    3.24369e-03 &    2.29422e-01 &    3.08975e-03   & test & test \\ 
+ 0.90 &    2.05174e-01 &    5.96036e-03 &    2.11837e-01 &    5.70555e-03   & test & test \\ 
+ 1.00 &    1.90546e-01 &    9.77123e-03 &    1.96756e-01 &    9.39189e-03   & test & test \\ 
 \hline
 \end{tabular}
 }
@@ -173,7 +89,7 @@ $\mu$ &$\psi(0, -\mu)$ &$\psi(\tau, \mu)$ &$\psi(0, -\mu)$ &$\psi(\tau, \mu)$ \\
 
 \begin{table}[h]
 \centering
-\caption{Exit Distributions: $s = \infty$}
+\caption{Angular flux exit Distributions for: $N=2048$, $Nx=100$, and $s = \infty$.}
 \label{tab:cesinf}
 \begin{tabular}{lllll}
  & \multicolumn{2}{c}{Garcia/Siewert}
@@ -196,10 +112,7 @@ $\mu$ &$\psi(0, -\mu)$ &$\psi(\tau, \mu)$ &$\psi(0, -\mu)$ &$\psi(\tau, \mu)$ \\
 \end{tabular}
 \end{table}
 
-In Tables \ref{tab:bigtab1} and \ref{tab:bigtabinf} we look at the
-relative errors in the QMC exit distributions as compared to a highly
-accurate SN result. We compensate for the widely varying scales by tabulating,
-for each value of $N$ and $Nx$
+In Tables \ref{tab:bigtab1} and \ref{tab:bigtabinf} we look at the relative errors in the QMC exit distributions as compared to a highly accurate $S_N$ result. We compensate for the widely varying scales by tabulating, for each value of $N$ and $Nx$
 \[
 R = \max(R^0, R^\tau)
 \]
@@ -213,9 +126,6 @@ and
 R^\tau = \max_\mu
 \frac{ | \psi^{SN}(\tau,\mu) - \psi^{QMC}(\tau,\mu) | }{\psi^{SN}(\tau,\mu) }.
 \]
-
-{\bf Ryan, for large Nx I see convergence as N increases. Is it clearly
-$1/N$? Am I missing something? Am I tabulating the wrong thing?}
 
 \begin{table}[h]
 \centering
@@ -255,31 +165,58 @@ $1/N$? Am I missing something? Am I tabulating the wrong thing?}
 \end{tabular} 
 \end{table}
 
-\subsubsection{Multigroup Problems}
 
-These are preliminary results with $N_x = 40$ and $N=2^{10}$. We may
-want to make these larger and/or make tables like 
-Table~\ref{tab:bigtab1} and Table~\ref{tab:bigtab1}. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Multigroup Problems}
+
+The second problem features 12, 70, and 618 group cross section data of high-density polyethylene generated with FUDGE \cite{mattoon2012generalized} in an infinite medium.  The analytic solution of the scalar flux is given by:
+\begin{equation}
+    \phi = (\Sigma_t - \Sigma_s)^{-1}Q.
+\end{equation}
+
+These are preliminary results with $N_x = 40$ and $N=2^{10}$. We may want to make these larger and/or make tables like  Table~\ref{tab:bigtab1} and Table~\ref{tab:bigtab1}. 
+
+
+\begin{figure}
+     \centering
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{FIGURES/12Group.pdf}
+         \caption{\label{fig:618group}}
+     \end{subfigure}
+     \hfill
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{FIGURES/70Group.pdf}
+         \caption{\label{fig:70group}}
+     \end{subfigure}
+     \\
+     \begin{subfigure}[b]{0.45\textwidth}
+         \centering
+         \includegraphics[width=\textwidth]{FIGURES/618Group.pdf}
+         \caption{\label{fig:12group}}
+     \end{subfigure}
+        \caption{Multigroup relative residuals}
+        \label{fig:multigroup}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Reed's Problem}
 
 \begin{figure}[h]
 \centerline{
-\includegraphics[width=3.5in]{FIGURES/12Group.pdf}
+\includegraphics[width=5.5in]{FIGURES/Reeds_problem2.png}
 }
-\caption{\label{fig:12group}}
+\caption{\label{fig:reeds}}
 \end{figure}
 
 \begin{figure}[h]
 \centerline{
-\includegraphics[width=3.5in]{FIGURES/70Group.pdf}
+\includegraphics[width=5.0in]{FIGURES/Reeds_problem.png}
 }
-\caption{\label{fig:70group}}
+\caption{\label{fig:reeds}}
 \end{figure}
-
-\begin{figure}[h]
-\centerline{
-\includegraphics[width=3.5in]{FIGURES/618Group.pdf}
-}
-\caption{\label{fig:618group}}
-\end{figure}
-
-

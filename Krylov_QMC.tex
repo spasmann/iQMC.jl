@@ -28,11 +28,15 @@ Mathematics\\ 3234 SAS Hall, Box 8205\\ Raleigh NC 27695-8205}
 \titlePage
 
 \begin{abstract}
-The Boltzmann form of the neutron transport equation describes the behavior of neutrons as they collide from one atom to another and is important in nuclear reactor design and accident analysis. The full neutron transport equation is space, direction, time and energy dependent. In many cases an analytic solution cannot be solved unless many simplifying assumptions are made. Numerical methods must be relied upon to provide physically realistic solutions. Iterative methods, like the diffusion accelerate Source Iteration (SI) are a standard practice. These iterative methods can be enhanced by replacing the deterministic transport sweep with Monte Carlo (MC) simulation. This Hybrid method can be further enhanced using Quasi-Monte Carlo (QMC) techniques, reducing the noise inherent in MC simulations. However, the SI method can suffer from low convergence rates, particularly in optically thick media. Preconditioned Krylov Subspace methods provide a more efficient solution compared to the SI method. Krylov methods including GMRES and BiCGStab are shown to outperform the SI in several test problems using the outlined hybrid QMC-iterative solver method.  
+
 \end{abstract}
 
 
 \input{intro_Krylov_QMC}
+
+\input{methods_Krylov_QMC}
+
+\input{implementation_Krylov_QMC}
 
 \input{results_Krylov_QMC}
 
@@ -46,10 +50,10 @@ The Boltzmann form of the neutron transport equation describes the behavior of n
 \pagebreak
 \section*{Acknowledgments}
 
-The research of CTK was supported by 
-Department of Energy grant DE-NA003967,
+
+This work was funded by the Center for Exascale Monte-Carlo Neutron Transport (CEMeNT) a PSAAP-III project funded by the Department of Energy, DE-NA003967, 
 %
-and National Science Foundation Grants
+and supported by National Science Foundation Grants
 % RTG
 DMS-1745654,
 and
@@ -58,7 +62,7 @@ DMS-1906446.
 
 
 \pagebreak
-\bibliographystyle{ans_js}                                                                           %custom ANS journal submission template bibliography style
+\bibliographystyle{ans_js}    %custom ANS journal submission template bibliography style
 \bibliography{qmckrylov}
 
 \end{document}

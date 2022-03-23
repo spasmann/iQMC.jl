@@ -652,3 +652,7 @@ function inf_Med_BC_Mu(rn, x, siga)
     end
     return mu
 end
+
+function save_array(fname, array)
+    writedlm(pwd()*"/Sam_QMC/output_data/$fname.dat",array, ' ')
+end

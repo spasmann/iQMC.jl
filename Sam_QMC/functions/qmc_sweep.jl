@@ -45,7 +45,6 @@ function qmc_sweep(phi_avg, qmc_data)
     else
         q =  phi_avg.*sigs + source # garcia tests and infinite medium problems
     end
-
     phi_avg = zeros(Nx,G)
     phi_edge = zeros(Nx+1,G)
     dphi = zeros(Nx,G)
