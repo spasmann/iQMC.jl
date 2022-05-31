@@ -8,6 +8,7 @@ using PyPlot
 using LinearAlgebra
 using Statistics
 using DelimitedFiles
+using LaTeXStrings
 pygui(true)
 import Distributions: Uniform
 

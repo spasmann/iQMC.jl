@@ -1,7 +1,6 @@
 """
 Sam Pasmann
 """
-
 function qmc_multiGroup(G=12, N=2^10)
     ###############################################################################
     #### Parameters
@@ -20,16 +19,7 @@ function qmc_multiGroup(G=12, N=2^10)
     #### Plots
     ###############################################################################
     midpoints = qmc_data.midpoints
-    edges = qmc_data.edges
     sol = qmc_data.true_flux
-
-    figure()
-    title("Scalar Flux")
-    plot(midpoints, sum(phi_avg, dims=2), label=generator)
-    #plot(edges, sum(phi_edge, dims=2), label="edges")
-    ylabel("cell averaged flux")
-    xlabel("midpoints")
-    legend()
 
     counter = 1
     figure()
@@ -39,11 +29,11 @@ function qmc_multiGroup(G=12, N=2^10)
                       "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]
     title("Group Scalar Flux")
     for i in 1:1:G
-        plot(midpoints, phi_avg[:,i], label=i,color=color_sequence[i] ) #color=color_sequence[i]
-        plot(midpoints,sol[:,i],"--",color=color_sequence[i] )
+        plot(midpoints, phi_avg[:,i], label=i,color=color_sequence[i]) #color=color_sequence[i]
+        plot(midpoints,sol[:,i],"--",color=color_sequence[i])
     end
-    ylabel("cell averaged flux")
-    xlabel("midpoints")
-    legend()
+    ylabel("Cell Averaged Scalar Flux")
+    xlabel("Spatial Position X")
+    legend(loc="upper right")
 
 end

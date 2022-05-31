@@ -44,7 +44,6 @@ bdiff=norm(picard_out.sol-bicgstab_out.sol)
 # Make the plot.
 #
 Compare_Plot(ghist,phist,bhist,plabel)
-Spectral_Radius_Plot(ghist,phist,bhist,plabel)
 println("gmres diff = $gdiff, BiCGSTAB diff = $bdiff")
 return gmres_out.sol
 end
@@ -61,14 +60,12 @@ phist=phist/phist[1]
 pl=1:length(phist)
 gl=1:length(ghist)
 bl=1:2:2*length(bhist)-1
+figure()
 semilogy(gl,ghist,"k-",pl,phist,"k--",bl,bhist,"k-.")
 legend(["gmres", "source iteration", "bicgstab"])
 xlabel("Transport Sweeps")
 ylabel("Relative Residual")
 tstring="QMC Residual Histories: $plabel"
 title(tstring)
-end
-
-function Spectral_Radius_Plot(ghist,phist,bhist,plabel)
-
+#savefig("reeds_residuals.png")
 end

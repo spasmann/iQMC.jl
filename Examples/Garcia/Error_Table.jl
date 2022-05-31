@@ -5,17 +5,17 @@ Error_Table(s=1.0, tol=1.e-5, NLim=5, NxLim=7;
 Makes the table of relative errors in the exit distributions.
 """
 function Error_Table(s=1.0, tol=1.e-5, NLim=1, NxLim=1;
-         savedata=true, maketab=false, fname=nothing, rptprog=true)
+         savedata=true, maketab=false, fname=nothing, rptprog=true, generator="Sobol")
 s==1.0 ? sp=1 : sp=Inf
 ltol=Int(log10(tol))
-LongFname="ErrTab$sp($NxLim-$NLim, $ltol)"
+LongFname="ErrTab$sp$generator($NxLim-$NLim, $ltol)"
 (fname == nothing) && (fname=LongFname)
 NxBase=50;
-Nvals=[2^10]#, 2^11, 2^12, 2^13, 2^14, 2^15]
-NxVals=NxBase*[1]#, 2, 4, 8, 16, 32]
+Nvals=[2^10, 2^11, 2^12, 2^13, 2^14, 2^15]
+NxVals=NxBase*[1, 2, 4, 8, 16, 32]
 Tout=zeros(NxLim,NLim)
 for indx=1:NxLim
-Zout=Error_Table_Row(NxVals[indx], s, Nvals[1:NLim],tol; rptprog=rptprog)
+Zout=Error_Table_Row(NxVals[indx], s, generator, Nvals[1:NLim],tol; rptprog=rptprog)
 rptprog && println("Row $indx complete")
 Tout[indx,:].=Zout
 end
@@ -34,13 +34,13 @@ makes a row of the error table, fixing Nx and varying N.
 In this way I can use the converged flux for one N as the initial
 iterate for the next.
 """
-function Error_Table_Row(Nx, s, Nvals, tol; rptprog=true)
+function Error_Table_Row(Nx, s, generator, Nvals, tol; rptprog=true)
 phi0=zeros(Nx,)
 maxit=200
 #
 N=Nvals[1]
 NLen=length(Nvals)
-qmc_data=SamGarciaInit(N, Nx, s)
+qmc_data=SamGarciaInit(N, Nx, s, generator)
 mxv_data=SamInitMV(qmc_data)
 b=mxv_data.b
 G=qmc_data.G
@@ -57,7 +57,7 @@ for Nind=1:NLen
     #
     if Nind < NLen
         phi0.=sol
-        mxv_data=Increase_N_GS(Nvals[Nind+1],Nx,s)
+        mxv_data=Increase_N_GS(Nvals[Nind+1],Nx,s, generator)
         b=mxv_data.b
     end
     #
@@ -65,8 +65,8 @@ end
 return RelErrs
 end
 
-function Increase_N_GS(N, Nx, s)
-qmc_data=SamGarciaInit(N, Nx, s)
+function Increase_N_GS(N, Nx, s, generator)
+qmc_data=SamGarciaInit(N, Nx, s, generator)
 mxv_data=SamInitMV(qmc_data)
 #b=mxv_data.b
 return mxv_data
