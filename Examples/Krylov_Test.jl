@@ -55,6 +55,7 @@ export Sam_Bench
 #
 export sn_init
 export garcia_test
+export garcia_example
 #
 # MG prolbem
 #
@@ -103,6 +104,7 @@ include("Garcia/transport_sweep.jl")
 include("Garcia/Results_Table.jl")
 include("Garcia/Error_Table.jl")
 include("Garcia/GS_Data_Read.jl")
+include("Garcia/garcia_example.jl")
 #
 # Multi-group files
 #
