@@ -17,6 +17,7 @@ using BenchmarkTools
 using DelimitedFiles
 using PyPlot
 pygui(true)
+using QuadGK
 import Distributions: Uniform
 
 export fprintTeX

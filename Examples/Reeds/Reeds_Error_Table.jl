@@ -5,18 +5,18 @@ Error_Table(tol=1.e-5, NLim=5, NxLim=7;
 Makes the table of relative errors in the exit distributions.
 """
 function Reeds_Error_Table(tol=1.e-5;
-         maketab=false, savedata=false, fname=nothing, rptprog=true, plot=false)
+         maketab=false, savedata=false, fname=nothing, rptprog=true, fluxplot=false)
 ltol=Int(log10(tol))
-Nvals= [2^10, 2^11, 2^12, 2^13, 2^14, 2^15]
-NLim = 6
-NxBase=80;
-NxVals=NxBase*[1, 2, 4, 8, 16, 32]
-NxLim = 6
+Nvals= [2^12]#[2^10, 2^11, 2^12, 2^13, 2^14, 2^15]
+NLim = 1
+NxBase=16;
+NxVals=NxBase*[6]#[1, 2, 4, 8, 16, 32]
+NxLim = 1
 LongFname="ErrTab($NxLim-$NLim, $ltol)"
 (fname == nothing) && (fname=LongFname)
 Tout=zeros(NxLim,NLim)
 for indx=1:NxLim
-    Zout=Reeds_Error_Table_Row(NxVals[indx], Nvals[1:NLim],tol, plot; rptprog=rptprog)
+    Zout=Reeds_Error_Table_Row(NxVals[indx], Nvals[1:NLim], tol; fluxplot=fluxplot, rptprog=rptprog)
     rptprog && println("Row $indx complete")
     Tout[indx,:].=Zout
 end
@@ -36,7 +36,7 @@ makes a row of the error table, fixing Nx and varying N.
 In this way I can use the converged flux for one N as the initial
 iterate for the next.
 """
-function Reeds_Error_Table_Row(Nx, Nvals, tol, plot; rptprog=true)
+function Reeds_Error_Table_Row(Nx, Nvals, tol; fluxplot=false, rptprog=true)
 phi0=zeros(Nx,)
 maxit=200
 #
@@ -52,9 +52,9 @@ V=zeros(Nv,20)
 #
 RelErrs=zeros(NLen,)
 
-if (plot)
+if (fluxplot)
     figure(1)
-    plot(qmc_data.midpoints, qmc_data.true_flux)
+    plot(qmc_data.midpoints, qmc_data.true_flux,label="sol")
 end
 
 for Nind=1:NLen
@@ -65,8 +65,10 @@ for Nind=1:NLen
     #rptprog && println("Column $Nind, Nx = $Nx, N = $(Nvals[Nind]), RelErr= ",ExitErr)
     rptprog && @printf("Nx = %i, N = %i, RelErr = %.3e \n", Nx, (Nvals[Nind]), ExitErr)
     #
-    if (plot)
-        plot(qmc_data.midpoints, sol)
+    if (fluxplot)
+        figure(1)
+        plot(qmc_data.midpoints, sol, label="gmres")
+        legend()
     end
     if Nind < NLen
         phi0.=sol

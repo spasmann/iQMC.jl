@@ -26,9 +26,40 @@ function reeds_sol(n=1000)
     3.119310353653182*10^(-3)*exp(0.5254295183311557*x) - 6.336401143340483*10^(-7)*exp(1.108937229227813*x) -
     3.528757679361232*10^(-8)*exp(1.615640334315550*x) - 4.405514335746888*10^(-18)*exp(4.554850586269065*x))
 
-    xspan = LinRange(-8.0,8.0,n)
+    LB = -8.0
+    RB = 8.0
+    dx = (RB-LB)/n
+    left_edges = LinRange(LB, RB-dx, n)
+    right_edges = LinRange(LB+dx, RB, n)
+    midpoints = LinRange(LB+dx/2, RB-dx/2, n)
     y = zeros(n)
-    count = 1
+
+    for count in range(1,n)
+        x = midpoints[count]
+        a = abs(left_edges[count])
+        b = abs(right_edges[count])
+        dx = b-a
+        if (x < -6.0)
+            y[count] = quadgk(y5, a, b)[1]/dx
+        elseif (x < -5.0)
+            y[count] = quadgk(y4, a, b)[1]/dx
+        elseif (x < -3.0)
+            y[count] = quadgk(y3, a, b)[1]/dx
+        elseif (x < -2.0)
+            y[count] = quadgk(y2, a, b)[1]/dx
+        elseif (x < 2.0)
+            y[count] = quadgk(y1, a, b)[1]/dx
+        elseif (x < 3.0)
+            y[count] = quadgk(y2, a, b)[1]/dx
+        elseif (x < 5.0)
+            y[count] = quadgk(y3, a, b)[1]/dx
+        elseif (x < 6.0)
+            y[count] = quadgk(y4, a, b)[1]/dx
+        else
+            y[count] = quadgk(y5, a, b)[1]/dx
+        end
+    end
+    """
     for x in xspan
         x = abs(x)
         if (x < -6.0)
@@ -52,5 +83,6 @@ function reeds_sol(n=1000)
         end
         count += 1
     end
+    """
     return y
 end
