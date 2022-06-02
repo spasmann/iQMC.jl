@@ -26,6 +26,7 @@ function rngInit(generator, N, dim)
             rng[i,:] = temp
         end
     elseif (generator == "Random")
+        Random.seed!(12345)
         rng = rand(N,dim)
     elseif (generator == "Golden")
         rng = GoldenSequence(dim)
