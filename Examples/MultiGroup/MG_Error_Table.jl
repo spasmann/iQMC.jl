@@ -4,19 +4,19 @@ Error_Table(tol=1.e-5, NLim=5, NxLim=7;
 
 Makes the table of relative errors in the exit distributions.
 """
-function MG_Error_Table(tol=1.e-5;
-         maketab=false, savedata=false, fname=nothing, rptprog=true)
+function MG_Error_Table(tol=1.e-5; NLim=6, NxLim=6,
+         maketab=false, savedata=true, fname=nothing, rptprog=true, generator="Sobol")
 ltol=Int(log10(tol))
 Nvals= [2^10, 2^11, 2^12, 2^13, 2^14, 2^15]
-NLim = 6
+#NLim = 6
 NxBase=50;
 NxVals=NxBase*[1, 2, 4, 8, 16, 32]
-NxLim = 6
-LongFname="ErrTab($NxLim-$NLim, $ltol)"
+#NxLim = 6
+LongFname="ErrTabMg$generator($NxLim-$NLim, $ltol)"
 (fname == nothing) && (fname=LongFname)
 Tout=zeros(NxLim,NLim)
 for indx=1:NxLim
-    Zout=MG_Error_Table_Row(NxVals[indx], Nvals[1:NLim],tol; rptprog=rptprog)
+    Zout=MG_Error_Table_Row(NxVals[indx], Nvals[1:NLim],tol; rptprog=rptprog, generator=generator)
     rptprog && println("Row $indx complete")
     Tout[indx,:].=Zout
 end
@@ -36,13 +36,12 @@ makes a row of the error table, fixing Nx and varying N.
 In this way I can use the converged flux for one N as the initial
 iterate for the next.
 """
-function MG_Error_Table_Row(Nx, Nvals, tol; rptprog=true)
-
+function MG_Error_Table_Row(Nx, Nvals, tol; rptprog=true, generator="Sobol")
+#
 maxit=200
 #
 N=Nvals[1]
 NLen=length(Nvals)
-generator="Sobol"
 geo = "Slab"
 LB = 0.0
 RB = 5.0

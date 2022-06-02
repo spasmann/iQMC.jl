@@ -4,7 +4,7 @@ Error_Table(s=1.0, tol=1.e-5, NLim=5, NxLim=7;
 
 Makes the table of relative errors in the exit distributions.
 """
-function Error_Table(s=1.0, tol=1.e-5, NLim=1, NxLim=1;
+function Error_Table(s=1.0, tol=1.e-5; NLim=6, NxLim=6,
          savedata=true, maketab=false, fname=nothing, rptprog=true, generator="Sobol")
 s==1.0 ? sp=1 : sp=Inf
 ltol=Int(log10(tol))
