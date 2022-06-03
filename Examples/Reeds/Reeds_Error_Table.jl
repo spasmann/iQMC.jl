@@ -49,7 +49,7 @@ G=qmc_data.G
 Nv=Nx*G
 V=zeros(Nv,20)
 #
-RelErrs=zeros(NLen,)
+Errs=zeros(NLen,)
 
 if (fluxplot)
     figure(1)
@@ -60,7 +60,7 @@ for Nind=1:NLen
     gmres_out=kl_gmres(phi0,b,SamMxv,V,tol; pdata=mxv_data, lmaxit=maxit)
     sol=gmres_out.sol; phi0.=sol;
     ExitErr=reeds_tabulate(Nx, sol; maketab=false)
-    RelErrs[Nind]=ExitErr
+    Errs[Nind]=ExitErr
     #rptprog && println("Column $Nind, Nx = $Nx, N = $(Nvals[Nind]), RelErr= ",ExitErr)
     rptprog && @printf("Nx = %i, N = %i, RelErr = %.3e \n", Nx, (Nvals[Nind]), ExitErr)
     #
@@ -76,7 +76,7 @@ for Nind=1:NLen
     end
     #
 end
-return RelErrs
+return Errs
 end
 
 function Increase_N_Reeds(N, Nx, generator)

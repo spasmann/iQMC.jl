@@ -13,8 +13,8 @@ function reeds_tabulate(nx, flux; maketab=true)
         reeds_texttab(GS,PS)
         reeds_LaTeX(GS,PS)
     end
-    reldiff=(GS-PS)./GS
-    ExitErr=norm(reldiff,Inf)
+    diff=(GS-PS)
+    ExitErr=norm(diff,Inf)
     return (ExitErr=ExitErr)
 end
 
