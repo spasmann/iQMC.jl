@@ -84,7 +84,7 @@ export reeds_LaTeX
 #
 #
 #
-include("test/garcia_test.jl")
+include("Garcia/Garcia_Scripts/garcia_test.jl")
 include("Tools/Sam_Bench.jl")
 include("Tools/fprintTeX.jl")
 include("Garcia/TeX_Error_Table.jl")
