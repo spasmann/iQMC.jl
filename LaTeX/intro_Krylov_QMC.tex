@@ -1,0 +1,29 @@
+\section{Introduction}
+\label{sec:intro}
+
+Modeling the neutron transport equation (NTE) under various conditions, accurately, and efficiently is vital to nuclear reaction simulations like those in advanced reactor design or accident analysis \cite{Duderstadt1977}.  The full form of the neutron transport equation describes the distribution of neutrons in space, angle, energy, and time. The equation's high-dimensional nature has lead to many solution techniques most common of which have been stochastic Monte Carlo simulations or deterministic discrete ordinates ($S_N$) methods. 
+
+The standard diffusion accelerated Source Iteration (SI), is the simplest and common deterministic solution technique for solving the discrete ordinates method \cite{Lewis1984}. However, as the scattering and fission terms increase, the convergence rate of the Source Iteration can become arbitrarily small \cite{Warsa2002}. More advanced iteration techniques such as Krylov subspace methods, including Generalized Minimal RESidual method (GMRES) and BiConjugate Gradient STABilized method (BiCGSTAB), have been shown to outperform the standard Source Iteration, particularly when the scattering term is high \cite{Adams2002, Mcclarren2012}. Nonetheless, as the dimensionality of the problem increases, the quadrature techniques used to asses the system of equations becomes intractable \cite{Willert2013Thesis}.
+
+Alternatively, Monte Carlo (MC) simulations provide a more robust solution, as the statistical error scales according to $O(N^{-0.5})$ regardless of the dimensionality of the problem CITATION. However, analog MC simulations are often seen as a \textit{last resort} due to their high computational cost and slow rates of convergence \cite{McClarren2018}. Recent work  by Willert et al. investigated a hybrid MC-deterministic solution in which the standard deterministic quadrature sweep of the iterative method is replaced with a Monte Carlo transport simulation \cite{Willert2013Thesis, ctk:jeff1}. This technique attempts to combine the efficiency of iterative methods while also providing a tractable solution for complex problems given the robustness of MC simulation.
+
+Although the MC simulation in this hybrid method benefits from a lower dimension problem, many particle histories are still required for convergence of the iterative method \cite{ctk:jeff1}. This work investigates the use of Quasi-Monte Carlo (QMC) techniques in place of standard MC to decrease the variance in the transport sweep and therefore increase the convergence rate of the iterative method. Quasi-Monte Carlo techniques use low-discrepancy sequences (LDS) in place of typical pseudo-random number generators for Monte Carlo sampling. Various LDS have been developed, including the Sobol and Halton sequences, where each attempts to sample the phase space in a deterministic and uniform manner. Theoretically, this results in a sampling error of $O(N^{-1})$ as compared to $O(N^{-0.5})$  of standard Monte Carlo \cite{Bickel2009}. QMC is often used to evaluate complex integrals in fields like finance \cite{Dagpunar2007}, but has largely been ignored by the particle transport community \cite{Spanier1995}. There has been some recent work in using QMC for radiation transport problems \cite{Farmer2020, Palluotto2019} but  to the knowledge of the authors there has not been any recent work with QMC applied to neutron transport. This is likely because the deterministic nature of the LDS breaks the Markovian assumption needed for the particle random-walk. However, the iterative methods discussed allow the problem to be modeled as a pure absorber, where each particle is emitted and \textit{traced} out of the volume without the need for a random-walk process.
+
+To investigate this method, we focus on solving the one-dimensional, fixed-source neutron transport equation in slab geometry with isotropic sampling. This formulation is taken from  \cite{ctk:jeff1} and can be seen in Equation \ref{eq:transport}. Although this is a reduced form of the full equation, it can still help evaluate the effectiveness of our methods. 
+
+\begin{equation}\label{eq:transport}
+\mu \frac{\partial \psi}{\partial x} (x,\mu) + \Sigma_t(x) \psi(x,\mu) =
+\frac{1}{2} \left[ \Sigma_s(x) \int_{-1}^1 \psi(x, \mu') \dmup + q(x) \right]
+ \mbox{ for } 0 \le x \le \tau
+\end{equation}
+
+With boundary conditions:
+
+\[
+\psi(0, \mu) = \psi_l(\mu), \mu > 0; \psi(\tau, \mu) = \psi_r(\mu), \mu < 0.
+\]
+
+In the next section we present a brief overview of the Source Iteration, Krylov solvers, and proposed QMC methods. The results section contains analysis from three test problems. First, angular flux results from a problem that features a fixed boundary source in slab geometry with a spatially dependent exponentially decaying scattering cross section \cite{cesinh}. The second problem solves for scalar flux with multi-group data generated from FUDGE \cite{mattoon2012generalized}, in an infinite medium, and with a known analytic solution. The third and final problem known as \textit{Reed's Problem}, provides an analytic solution for scalar flux across a mulit-media spatial domain \cite{Warsa2001} in slab geometry. Finally, key findings as well as future work is discussed in the conclusion.
+\clearpage
+
+
