@@ -30,8 +30,10 @@ function rngInit(generator, N, dim)
         rng = rand(N,dim)
     elseif (generator == "Golden")
         rng = GoldenSequence(dim)
+    elseif (generator == "Halton")
+        rng = HaltonPoint(dim,length=N)
     else
-        error("RNG must be 'Sobol', 'Golden', or 'Random'. ")
+        error("RNG must be 'Sobol', 'Golden', 'Halton', or 'Random'. ")
     end
     return rng
 end
@@ -63,6 +65,8 @@ function nextBoundaryRN(rng, i, generator, Geo, Dim)
             randMu = rng[i,Dim]
         elseif (generator == "Golden")
             randMu = rng[i][Dim]
+        elseif (generator == "Halton")
+            randMu = rng[i][Dim]
         end
         randPhi = 0
     else
@@ -73,6 +77,9 @@ function nextBoundaryRN(rng, i, generator, Geo, Dim)
             randMu = rng[i,Dim]
             randPhi = rng[i,Dim+1]
         elseif (generator == "Golden")
+            randMu = rng[i][Dim]
+            randPhi = rng[i][Dim+1]
+        elseif (generator == "Halton")
             randMu = rng[i][Dim]
             randPhi = rng[i][Dim+1]
         end
@@ -111,6 +118,9 @@ function nextRN(rng, i, generator, Geo, Dim)
         elseif (generator == "Golden")
             randX = rng[i][Dim]
             randMu = rng[i][Dim+1]
+        elseif (generator == "Halton")
+            randX = rng[i][Dim]
+            randMu = rng[i][Dim+1]
         end
         randPhi = 0
     else
@@ -123,6 +133,10 @@ function nextRN(rng, i, generator, Geo, Dim)
             randMu = rng[i,Dim+1]
             randPhi = rng[i,Dim+2]
         elseif (generator == "Golden")
+            randX = rng[i][Dim]
+            randMu = rng[i][Dim+1]
+            randPhi = rng[i][Dim+2]
+        elseif (generator == "Halton")
             randX = rng[i][Dim]
             randMu = rng[i][Dim+1]
             randPhi = rng[i][Dim+2]

@@ -3,6 +3,7 @@ module QMC
 
 using Sobol
 using GoldenSequences
+using HaltonSequences
 using Random
 using PyPlot
 using LinearAlgebra

@@ -13,6 +13,7 @@ using DelimitedFiles
 using Random
 using Sobol
 using GoldenSequences
+using HaltonSequences
 using BenchmarkTools
 using DelimitedFiles
 using PyPlot
