@@ -44,6 +44,8 @@ export SamPicard
 export readtab
 export writetab
 export TeX_Error_Table
+export Solution_Compare
+export Solver_Compare
 #
 #
 export SamGarciaInit
@@ -52,6 +54,7 @@ export SamAA0
 export SamAA
 export FixedTest
 export Sam_Bench
+
 #
 # Garcia/Siewert results
 #
@@ -76,6 +79,7 @@ export reeds_example
 export reeds_init
 export reeds_data
 export reeds_solution
+export reeds_mcdc_sol
 export Reeds_Error_Table
 export Reeds_Error_Table_Row
 export Increase_N_Reeds
@@ -95,6 +99,7 @@ include("Tools/SamMaps.jl")
 #include("Tools/SamGmres.jl")
 include("Tools/SamSolvers.jl")
 include("Tools/Solver_Compare.jl")
+include("Tools/Solution_Compare.jl")
 #
 # Garcia-Siewert files
 #

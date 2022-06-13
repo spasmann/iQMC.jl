@@ -1,10 +1,8 @@
 
-function reeds_data(Nx=1000)
+function reeds_data(Nx=1000; LB=-8.0, RB=8.0)
     sigt = zeros(Nx)
     sigs = zeros(Nx)
     source = zeros(Nx)
-    LB = -8.0
-    RB = 8.0
     dx = (RB-LB)/Nx
     midpoints = LinRange(LB+dx/2, RB-dx/2, Nx)
     count = 1

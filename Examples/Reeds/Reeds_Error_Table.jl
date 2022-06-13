@@ -5,7 +5,7 @@ Error_Table(tol=1.e-5, NLim=5, NxLim=7;
 Makes the table of relative errors in the exit distributions.
 """
 function Reeds_Error_Table(tol=1.e-5; NLim=6, NxLim=6,
-         maketab=false, savedata=false, fname=nothing, rptprog=true, fluxplot=false, generator="Sobol")
+         maketab=false, savedata=false, fname=nothing, rptprog=true, fluxplot=false, generator="Sobol",LB=-8.0,RB=8.0)
 ltol=Int(log10(tol))
 Nvals= [2^10, 2^11, 2^12, 2^13, 2^14, 2^15]
 #NLim = 6
@@ -36,13 +36,13 @@ makes a row of the error table, fixing Nx and varying N.
 In this way I can use the converged flux for one N as the initial
 iterate for the next.
 """
-function Reeds_Error_Table_Row(Nx, Nvals, tol; fluxplot=false, rptprog=true, generator="Sobol")
+function Reeds_Error_Table_Row(Nx, Nvals, tol; fluxplot=false, rptprog=true, generator="Sobol",LB=-8.0,RB=8.0)
 phi0=zeros(Nx,)
 maxit=200
 #
 N=Nvals[1]
 NLen=length(Nvals)
-qmc_data=reeds_init(generator,N,Nx)
+qmc_data=reeds_init(generator,N,Nx,LB=LB,RB=RB)
 mxv_data=SamInitMV(qmc_data)
 b=mxv_data.b
 G=qmc_data.G

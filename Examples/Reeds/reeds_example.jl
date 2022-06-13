@@ -1,9 +1,8 @@
-function reeds_example()
+function reeds_example(N=2^11, Nx=160; LB=-8.0, RB=8.0)
 generator = "Sobol"
-Nx=160
-N=2^11
-qmc_data = reeds_init(generator,N,Nx)
+qmc_data = reeds_init(generator,N,Nx,LB=LB,RB=RB)
 exact=qmc_data.true_flux
 mxv_data = SamInitMV(qmc_data)
-gmsol=Solver_Compare(mxv_data; plabel="Reed's Problem")
+#gmsol=Solver_Compare(mxv_data; plabel="Reed's Problem")
+Solution_Compare(mxv_data; plabel="Reed's Problem")
 end
