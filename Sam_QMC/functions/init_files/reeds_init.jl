@@ -1,13 +1,11 @@
 """
     reeds_init(generator, N, LB, RB, Nx)
 """
-function reeds_init(generator, N, Nx)
+function reeds_init(generator, N, Nx; LB=-8.0, RB=8.0)
 
         hasLeft = false
         hasRight = false
 
-        LB = -8.0
-        RB = 8.0
         dx = (RB-LB)/Nx
         #define tally mesh
         low_edges = range(LB, stop=RB-dx, length=Nx)
@@ -32,8 +30,9 @@ function reeds_init(generator, N, Nx)
         exit_left_bins[:,2] .= 0
 
         G = 1 # number of groups
-        sigt, sigs, siga, source = reeds_data(Nx)
-        true_flux = reeds_sol(Nx)
+        sigt, sigs, siga, source = reeds_data(Nx,LB=LB,RB=RB)
+        #true_flux = reeds_sol(Nx,LB=LB,RB=RB)
+        true_flux = reeds_mcdc_sol()
 
         # phi_avg is defaulted to = zeros(Nx)
         phi_edge = zeros(Nx+1,G)
