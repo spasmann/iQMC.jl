@@ -11,31 +11,31 @@ function reeds_data(Nx=1000; LB=-8.0, RB=8.0)
             sigt[count] = 1.0
             sigs[count] = 0.9
             source[count] = 0.0
-        elseif (x < -5.0)
+        elseif (-6.0 < x) && (x < -5.0)
             sigt[count] = 1.0
             sigs[count] = 0.9
             source[count] = 1.0
-        elseif (x < -3.0)
+        elseif (-5.0 < x) && (x < -3.0)
             sigt[count] = 0.0#1e-16
             sigs[count] = 0.0#1e-16
             source[count] = 0.0#1e-16
-        elseif (x < -2.0)
+        elseif (-3.0 < x < -2.0)
             sigt[count] = 5.0
             sigs[count] = 0.0
             source[count] = 0.0
-        elseif (x < 2.0)
+        elseif (-2.0 < x < 2.0)
             sigt[count] = 50.0
             sigs[count] = 0.0
             source[count] = 50.0
-        elseif (x < 3.0)
+        elseif (2.0 < x < 3.0)
             sigt[count] = 5.0
             sigs[count] = 0.0
             source[count] = 0.0
-        elseif (x < 5.0)
+        elseif (3.0 < x < 5.0)
             sigt[count] = 0.0#1e-16
             sigs[count] = 0.0#1e-16
             source[count] = 0.0#1e-16
-        elseif (x < 6.0)
+        elseif (5.0 < x < 6.0)
             sigt[count] = 1.0
             sigs[count] = 0.9
             source[count] = 1.0

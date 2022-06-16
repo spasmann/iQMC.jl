@@ -80,12 +80,14 @@ export reeds_init
 export reeds_data
 export reeds_solution
 export reeds_mcdc_sol
+export reeds_Nx80_sol
 export Reeds_Error_Table
 export Reeds_Error_Table_Row
 export Increase_N_Reeds
 export reeds_tabulate
 export reeds_texttab
 export reeds_LaTeX
+export reduce_flux
 #
 #
 #
