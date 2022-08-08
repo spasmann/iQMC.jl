@@ -4,15 +4,12 @@ Error_Table(tol=1.e-5, NLim=5, NxLim=7;
 
 Makes the table of relative errors in the exit distributions.
 """
-function MG_Error_Table(tol=1.e-5; NLim=6, NxLim=6,
+function MG_Error_Table(tol=1.e-5; NxVals=[20], Nvals= [2^10, 2^11, 2^12, 2^13, 2^14, 2^15, 2^17],
          maketab=false, savedata=true, fname=nothing, rptprog=true, generator="Sobol")
 ltol=Int(log10(tol))
-Nvals= [2^10, 2^11, 2^12, 2^13, 2^14, 2^15]
-#NLim = 6
-NxBase=50;
-NxVals=NxBase*[1, 2, 4, 8, 16, 32]
-#NxLim = 6
-LongFname="ErrTabMg$generator($NxLim-$NLim, $ltol)"
+NxLim = length(Nxvals)
+NLim = length(Nvals)
+LongFname="ErrTabMg$generator($NxLim-$NLim, $ltol)Nx$(Nxvals[1])"
 (fname == nothing) && (fname=LongFname)
 Tout=zeros(NxLim,NLim)
 for indx=1:NxLim

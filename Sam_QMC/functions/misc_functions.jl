@@ -20,6 +20,7 @@ function rngInit(generator, N, dim)
     # the sobol package makes this difficult
     if (generator == "Sobol")
         sobol = SobolSeq(dim)
+        skip(sobol, N)
         rng = zeros(N, dim)
         for i in 1:N
             temp = next!(sobol)

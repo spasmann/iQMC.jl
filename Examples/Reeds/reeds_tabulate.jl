@@ -49,13 +49,13 @@ This function averages the scalar flux across spatial zones until the size
 is (80,1). This function is for comparison to MCDC's N=10^10 Nx=80 run.
 """
 function reduce_flux(flux)
-    len = length(flux)
+    len = size(flux)[1]
     I = log(len/80)/log(2)
     for i in range(1,I)
-        left_edges = flux[1:2:len-1]
-        right_edges = flux[2:2:len]
+        left_edges = flux[1:2:len-1,:]
+        right_edges = flux[2:2:len,:]
         flux = (right_edges + left_edges)*0.5
-        len = length(flux)
+        len = size(flux)[1]
     end
     return flux
 end

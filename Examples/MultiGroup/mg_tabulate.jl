@@ -11,6 +11,7 @@ function mg_tabulate(G, Nx, true_flux, flux; maketab=true)
         mg_texttab(true_flux,flux)
         mg_LaTeX(true_flux,flux)
     end
+
     true_flux = reshape(true_flux, G*Nx,)
     reldiff=(true_flux-flux)./true_flux
     ExitErr=norm(reldiff,Inf)
@@ -37,4 +38,20 @@ headers = [L"$\mu$",L"$\psi(0,-\mu)$",L"$\psi(\tau,\mu)$",
 TData=[angleout[na+1:2*na] GS[:,1] GS[:,2] PS[:,1] PS[:,2]]
 formats="%5.2f & %14.5e & %14.5e & %14.5e & %14.5e"
 fprintTeX(headers, formats, TData)
+end
+
+"""
+This function averages the scalar flux across spatial zones until the size
+is (20,G).
+"""
+function reduce_flux(flux)
+    len = size(flux)[1]
+    I = log(len/20)/log(2)
+    for i in range(1,I)
+        left_edges = flux[1:2:len-1,:]
+        right_edges = flux[2:2:len,:]
+        flux = (right_edges + left_edges)*0.5
+        len = size(flux)[1]
+    end
+    return flux
 end
