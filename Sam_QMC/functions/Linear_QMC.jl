@@ -1,11 +1,7 @@
 """
 Linear_QMC()
 
-Demonstrate a lack of linearity. I start with the issue in QMC_Sweep
-and show that the obvious way to recover linear maps does not work.
-
-See the pdf for the details.
-
+Linearity Test
 """
 
 function Linear_QMC()
