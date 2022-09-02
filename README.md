@@ -44,3 +44,5 @@ mg_example.jl does the same job as
 Make_Plots_Iterations.jl does for the Garia-Siewert example. I use
 Solver_Compare.jl to run the solvers and plot the results. I also add
 a test at the end to make sure I'm getting correct results.
+
+[1] Pasmann, S., Variansyah, I., and McClarren, R. G. Convergent transport source iteration calculations with quasi-monte carlo. vol. 124, American Nuclear Society, pp. 192–195.
