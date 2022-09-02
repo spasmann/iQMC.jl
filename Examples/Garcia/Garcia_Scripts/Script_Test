@@ -1,4 +1,0 @@
-push!(LOAD_PATH,"..");
-using Krylov_Test
-Rout=Error_Table(1.0, 1.e-5, NLim=5, NxLim=7)
-println(Rout)
