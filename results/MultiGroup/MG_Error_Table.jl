@@ -1,10 +1,7 @@
 """
-Error_Table(tol=1.e-5, NLim=5, NxLim=7;
-            maketab=true, fname=nothing, rptprog=true)
-
 Makes the table of relative errors in the exit distributions.
 """
-function MG_Error_Table(tol=1.e-5; NxVals=[20], Nvals= [2^10, 2^11, 2^12, 2^13, 2^14, 2^15, 2^17],
+function MG_Error_Table(tol=1.e-5; Nxvals=[20], Nvals= [2^10, 2^11, 2^12, 2^13, 2^14, 2^15, 2^17],
          maketab=false, savedata=true, fname=nothing, rptprog=true, generator="Sobol")
 ltol=Int(log10(tol))
 NxLim = length(Nxvals)
@@ -13,7 +10,7 @@ LongFname="ErrTabMg$generator($NxLim-$NLim, $ltol)Nx$(Nxvals[1])"
 (fname == nothing) && (fname=LongFname)
 Tout=zeros(NxLim,NLim)
 for indx=1:NxLim
-    Zout=MG_Error_Table_Row(NxVals[indx], Nvals[1:NLim],tol; rptprog=rptprog, generator=generator)
+    Zout=MG_Error_Table_Row(Nxvals[indx], Nvals[1:NLim],tol; rptprog=rptprog, generator=generator)
     rptprog && println("Row $indx complete")
     Tout[indx,:].=Zout
 end

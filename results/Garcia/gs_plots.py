@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import sys
-sys.path.append("Krylov_QMC/Examples/Garcia/")
+sys.path.append("/results/Garcia/")
 
 data1 = np.genfromtxt("ErrTab1(6-6, -5).dat")
 dataInf = np.genfromtxt("ErrTabInf(6-6, -5).dat")

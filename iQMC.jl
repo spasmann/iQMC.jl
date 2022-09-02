@@ -104,7 +104,7 @@ include("src/QMC/functions/init_files/qmc_init.jl")
 include("src/QMC/functions/init_files/reeds_init.jl")
 include("src/QMC/functions/reeds_data.jl")
 include("src/QMC/functions/reeds_solution.jl")
-include("Sam_QMC/functions/move_part.jl")
+include("src/QMC/functions/move_part.jl")
 include("src/QMC/functions/misc_functions.jl")
 #
 # Garcia-Siewert files
