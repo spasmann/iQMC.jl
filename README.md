@@ -8,7 +8,11 @@ methods to solve successive iterations of the Source Iteration and other advance
 linear solvers for neutron transport.
  
 ## Basic Usage 
-  
+To load the iQMC package:
+```julia
+push!(LOAD_PATH,<path_to_repo>)
+using(iQMC)
+```
 ## Codes: 
 
 The files that I use to make the plots and tables for the paper are in the Examples directory
